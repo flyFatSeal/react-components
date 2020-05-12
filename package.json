@@ -35,14 +35,14 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "clean": "rimraf ./dist",
+    "clean": "rimraf ./lib",
     "lint": "eslint --ext js,ts,tsx src --max-warnings 5",
-    "build": "npm run clean && npm run build-ts && react-app-rewired build",
+    "build": "npm run clean && npm run build-ts && npm run build-css",
     "test": "react-scripts test",
     "test:nowatch": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject",
     "build-ts": "tsc -p tsconfig.build.json",
-    "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
+    "build-css": "node complierAllScss.js",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "prepublishOnly": "npm run test:nowatch && npm run lint && npm run build"
