@@ -1,25 +1,31 @@
-import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
+import React, {Fragment} from 'react'
+import {storiesOf} from '@storybook/react'
+import {action} from '@storybook/addon-actions'
+import '@testing-library/jest-dom/extend-expect'
 
 import Button from './button'
+import './style/index'
 
 const defaultButton = () => (
   <Button onClick={action('clicked')}> default button </Button>
 )
 
 const buttonWithSize = () => (
-  <>
-    <Button size="lg"> large button </Button>
+  <Fragment>
+    <Button size="lg" style={{marginRight: '10px'}}>
+      large button
+    </Button>
     <Button size="sm"> small button </Button>
-  </>
+  </Fragment>
 )
 
 const buttonWithType = () => (
   <>
     <Button btnType="primary"> primary button </Button>
     <Button btnType="danger"> danger button </Button>
-    <Button btnType="link" href="https://google.com"> link button </Button>
+    <Button btnType="link" href="https://google.com">
+      link button
+    </Button>
   </>
 )
 storiesOf('Button Component', module)
