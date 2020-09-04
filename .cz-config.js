@@ -16,7 +16,7 @@ module.exports = {
     {value: '⬇️依赖', name: '依赖:    去除代码库中的依赖'},
     {value: '🔥删除', name: '删除:    删除部分代码'},
   ],
-  scopes: [{name: '模块1'}, {name: '模块2'}, {name: '模块3'}, {name: '模块4'}],
+  scopes: [{name: 'cil'}, {name: 'components'}, {name: 'style'}],
   // it needs to match the value for field type. Eg.: 'fix'
   /*  scopeOverrides: {
     fix: [
