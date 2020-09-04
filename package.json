@@ -1,8 +1,11 @@
 {
   "name": "haiwell",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "React components library",
-  "author": "Wang Jian",
+  "authors": {
+    "name": "fatseal",
+    "email": "491927227@qq.com"
+  },
   "private": false,
   "typings": "lib/index.d.ts",
   "main": "lib/index.js",
