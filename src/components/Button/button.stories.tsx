@@ -1,7 +1,6 @@
 import React, {Fragment} from 'react'
 import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
-import '@testing-library/jest-dom/extend-expect'
 
 import Button from './button'
 import './style/index'
@@ -28,6 +27,7 @@ const buttonWithType = () => (
     </Button>
   </>
 )
+
 storiesOf('Button Component', module)
   .add('Button', defaultButton)
   .add('不同尺寸的 Button', buttonWithSize)

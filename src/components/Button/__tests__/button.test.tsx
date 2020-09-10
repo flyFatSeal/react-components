@@ -1,6 +1,7 @@
 import React from 'react'
 import {render, fireEvent} from '@testing-library/react'
 import Button, {ButtonProps} from '../button'
+import '@testing-library/jest-dom/extend-expect'
 const defaultProps = {
   onClick: jest.fn(),
 }
