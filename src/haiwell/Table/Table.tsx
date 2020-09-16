@@ -2,6 +2,7 @@ import React, {FC, useState} from 'react'
 
 import {HotTable} from '@handsontable/react'
 import 'handsontable/dist/handsontable.full.css'
+import {useLocalContext} from '../until/locale'
 
 /** 单元格属性*/
 export interface CellProps {
@@ -22,6 +23,9 @@ const Table: FC<TableProps> = (props) => {
   const [tableData, setTableData] = useState<Array<CellProps[]>>(
     transformData(data, colWidthConfig)
   )
+
+  let Locale = useLocalContext('Table')
+  console.info('locale:', Locale)
 
   const hotSetting = {
     colHeaders: true,
