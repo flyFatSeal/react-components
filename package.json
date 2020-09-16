@@ -26,6 +26,7 @@
   ],
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
+    "@handsontable/react": "2.1.0",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "conventional-changelog-cli": "^2.1.0",

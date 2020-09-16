@@ -18,8 +18,22 @@ addDecorator(withInfo)
 addParameters({info: {inline: true, header: false}})
 const loaderFn = () => {
   const allExports = [require('../src/welcome.stories.tsx')]
-  const req = require.context('../src/components', true, /\.stories\.tsx$/)
-  req.keys().forEach((fname) => allExports.push(req(fname)))
+  const commonComponents = require.context(
+    '../src/components',
+    true,
+    /\.stories\.tsx$/
+  )
+  const haiwellComponents = require.context(
+    '../src/haiwell',
+    true,
+    /\.stories\.tsx$/
+  )
+  commonComponents
+    .keys()
+    .forEach((fname) => allExports.push(commonComponents(fname)))
+  haiwellComponents
+    .keys()
+    .forEach((fname) => allExports.push(haiwellComponents(fname)))
   return allExports
 }
 

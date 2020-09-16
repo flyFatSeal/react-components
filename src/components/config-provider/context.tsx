@@ -1,5 +1,4 @@
 import * as React from 'react'
-
 export type SizeType = 'small' | 'middle' | 'large' | undefined
 
 export interface ConfigConsumerProps {
@@ -8,7 +7,12 @@ export interface ConfigConsumerProps {
   space?: {
     size?: SizeType | number
   }
+  locale?: {
+    [key: string]: string
+  }
 }
+
+export interface LocaleConsumerProps {}
 
 export const ConfigContext = React.createContext<ConfigConsumerProps>({
   // We provide a default function for Context without provider

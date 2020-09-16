@@ -47,6 +47,6 @@ module.exports = ({config}) => {
   )
 
   config.resolve.extensions.push('.ts', '.tsx')
-
+  config.devtool = 'inline-source-map'
   return config
 }

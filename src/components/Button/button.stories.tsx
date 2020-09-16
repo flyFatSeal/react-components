@@ -9,14 +9,17 @@ const defaultButton = () => (
   <Button onClick={action('clicked')}> default button </Button>
 )
 
-const buttonWithSize = () => (
-  <Fragment>
-    <Button size="lg" style={{marginRight: '10px'}}>
-      large button
-    </Button>
-    <Button size="sm"> small button </Button>
-  </Fragment>
-)
+const buttonWithSize = () => {
+  console.info('webpack')
+  return (
+    <Fragment>
+      <Button size="lg" style={{marginRight: '10px'}}>
+        large button
+      </Button>
+      <Button size="sm"> small button </Button>
+    </Fragment>
+  )
+}
 
 const buttonWithType = () => (
   <>
