@@ -1,6 +1,6 @@
 {
   "name": "haiwell",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "React components library",
   "authors": {
     "name": "fatseal",
@@ -41,7 +41,7 @@
   "scripts": {
     "start": "npm run storybook",
     "clean": "rimraf ./lib",
-    "lint": "eslint --ext js,ts,tsx src --max-warnings 5",
+    "lint": "eslint --ext js,ts,tsx src --max-warnings 20",
     "build": "npm run clean && npm run build-ts && npm run copyLess",
     "copyLess": "copyfiles -u 1 \"src/components/**/style/*.less\" lib && copyfiles -u 1 \"src/components/style/**/*.less\" lib",
     "test": "jest",

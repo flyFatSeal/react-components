@@ -131,14 +131,14 @@ async function main() {
   try {
     const nextVersion = await prompt()
     const startTime = Date.now()
+    // =================== 组件库打包 ===================
+    await build()
     // =================== 更新版本号 ===================
     await updateVersion(nextVersion)
     // =================== 更新changelog ===================
     await generateChangelog()
     // =================== 代码推送git仓库 ===================
     await push(nextVersion)
-    // =================== 组件库打包 ===================
-    await build()
     // =================== 发布至npm ===================
     await publish()
     // =================== 打tag并推送至git ===================
