@@ -1,6 +1,6 @@
 interface Window {
   _locale: {[key: string]: string}
-  _Hai: Hai
+  hai: Hai
   sysLang: {
     [key: string]: string
   }
