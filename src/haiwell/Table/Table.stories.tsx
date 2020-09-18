@@ -436,7 +436,7 @@ setInterval(() => {
       sqlData: {HistoryG: {'1': [{'12': '16', '23': '5', time: 1600399696}]}},
     },
   })
-}, 10000)
+}, 5000)
 
 const defaultTable = () => {
   const root = document.createElement('div')

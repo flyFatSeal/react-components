@@ -373,22 +373,26 @@ const initCellsClassAndMergeCell = (
           typeof cellValue === 'object' &&
           cellValue.hasOwnProperty('image')
         ) {
-          hot.setDataAtCell(
-            row,
-            col,
-            `<div style="width:100%;height:100%"><img height="100%" width="100%" src='../images/${cellValue.image}'></div>`
-          )
+          setTimeout(() => {
+            hot.setDataAtCell(
+              row,
+              col,
+              `<div style="width:100%;height:100%"><img height="100%" width="100%" src='../images/${cellValue.image}'></div>`
+            )
+          })
         }
       }
     }
 
-    hot.updateSettings(
-      {
-        mergeCells,
-      },
-      false
-    )
-    hot.render()
+    setTimeout(() => {
+      hot.updateSettings(
+        {
+          mergeCells,
+        },
+        false
+      )
+      hot.render()
+    })
   })
 }
 /** 将组态配置好的样式添加到全局*/
