@@ -1,4 +1,4 @@
-import {HaiwellTableProps, TableProps} from './Table'
+import {HaiwellTableProps} from './Table'
 import Table from './Table'
 import ReactDOM from 'react-dom'
 

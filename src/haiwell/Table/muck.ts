@@ -1,12 +1,12 @@
 export const testData = {
   tableConfig: {
     border: 1,
-    width: '830',
+    width: '916',
     cellspacing: '0',
     style: 'border-collapse: collapse;',
   },
   css:
-    '  .s09ac4be97-cdf2-4d4b-938c-6e1505a94bc3{color:#000000; text-align:left; vertical-align:middle; border-left:0px; border-right:0px; border-top:0px; border-bottom:0px; }  .s19ac4be97-cdf2-4d4b-938c-6e1505a94bc3{color:#000000; text-align:center; vertical-align:middle; border-left:0px; border-right:0px; border-top:0px; border-bottom:0px; }  .f09ac4be97-cdf2-4d4b-938c-6e1505a94bc3{font-family: 宋体; font-size: 9pt;}  .f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3{font-family: 宋体; font-size: 9pt;}  .f29ac4be97-cdf2-4d4b-938c-6e1505a94bc3{font-family: 宋体; font-size: 14pt;font-weight: 700;}',
+    '  .s0ea9403e1-814f-4019-8956-d54422475429{color:#000000; text-align:left; vertical-align:middle; border-left:0px; border-right:0px; border-top:0px; border-bottom:0px; }  .s1ea9403e1-814f-4019-8956-d54422475429{color:#000000; text-align:center; vertical-align:middle; border-left:0px; border-right:0px; border-top:0px; border-bottom:0px; }  .s2ea9403e1-814f-4019-8956-d54422475429{color:#000000;background:#99cc00; text-align:left; vertical-align:middle; border-left:0px; border-right:0px; border-top:0px; border-bottom:0px; }  .f0ea9403e1-814f-4019-8956-d54422475429{font-family: 宋体; font-size: 9pt;}  .f1ea9403e1-814f-4019-8956-d54422475429{font-family: 宋体; font-size: 9pt;}  .f2ea9403e1-814f-4019-8956-d54422475429{font-family: 宋体; font-size: 14pt;font-weight: 700;}  .f3ea9403e1-814f-4019-8956-d54422475429{font-family: 宋体; font-size: 9pt;font-weight: 700;}  .f4ea9403e1-814f-4019-8956-d54422475429{font-family: 宋体; font-size: 9pt;font-style: italic;}',
   trConfig: [
     {height: '30'},
     {height: '30'},
@@ -20,9 +20,9 @@ export const testData = {
   ],
   colWidthConfig: [
     {width: '40'},
-    {width: '97'},
-    {width: '135'},
-    {width: '129'},
+    {width: '84'},
+    {width: '222'},
+    {width: '141'},
     {width: '137'},
     {width: '139'},
     {width: '153'},
@@ -32,8 +32,8 @@ export const testData = {
     [
       {
         class:
-          's19ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f29ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 97,
+          's1ea9403e1-814f-4019-8956-d54422475429 f2ea9403e1-814f-4019-8956-d54422475429',
+        width: 84,
         colSpan: 6,
         rowSpan: 1,
         value: '数据组记录报表',
@@ -42,31 +42,23 @@ export const testData = {
     [
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 97,
+          's0ea9403e1-814f-4019-8956-d54422475429 f4ea9403e1-814f-4019-8956-d54422475429',
+        width: 84,
         colSpan: 1,
         rowSpan: 1,
-        value: '起始日期：',
+        value: '起始日期:',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 135,
-        colSpan: 1,
+          's0ea9403e1-814f-4019-8956-d54422475429 f3ea9403e1-814f-4019-8956-d54422475429',
+        width: 222,
+        colSpan: 2,
         rowSpan: 1,
-        value: '2020/09/11 14:36:09',
+        value: '2020/09/17 10:51:03',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 129,
-        colSpan: 1,
-        rowSpan: 1,
-        value: '',
-      },
-      {
-        class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 137,
         colSpan: 1,
         rowSpan: 1,
@@ -74,15 +66,15 @@ export const testData = {
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 139,
         colSpan: 1,
         rowSpan: 1,
-        value: '2020/09/11 14:36:09',
+        value: '2020/09/17 10:51:03',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 153,
         colSpan: 1,
         rowSpan: 1,
@@ -92,47 +84,39 @@ export const testData = {
     [
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 97,
+          's2ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 84,
         colSpan: 1,
         rowSpan: 1,
         value: '时间列',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 135,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 222,
         colSpan: 1,
         rowSpan: 1,
-        value: '$Hour',
+        value: '$Second',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 129,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 141,
         colSpan: 1,
         rowSpan: 1,
-        value: '$Minute',
+        value: '$Week',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 137,
-        colSpan: 1,
-        rowSpan: 1,
-        value: '',
+        colSpan: 2,
+        rowSpan: 2,
+        value: {image: '7aa40fd5f9c554e5a9c3e34fd4af072f'},
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 139,
-        colSpan: 1,
-        rowSpan: 1,
-        value: '',
-      },
-      {
-        class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 153,
         colSpan: 1,
         rowSpan: 1,
@@ -142,47 +126,31 @@ export const testData = {
     [
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 97,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 84,
         colSpan: 1,
         rowSpan: 1,
         value: '-',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 135,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 222,
         colSpan: 1,
         rowSpan: 1,
         value: '-',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 129,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 141,
         colSpan: 1,
         rowSpan: 1,
         value: '-',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 137,
-        colSpan: 1,
-        rowSpan: 1,
-        value: '',
-      },
-      {
-        class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 139,
-        colSpan: 1,
-        rowSpan: 1,
-        value: '',
-      },
-      {
-        class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 153,
         colSpan: 1,
         rowSpan: 1,
@@ -192,29 +160,29 @@ export const testData = {
     [
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 97,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 84,
         colSpan: 1,
         rowSpan: 1,
         value: '求和:',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 135,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 222,
         colSpan: 1,
         rowSpan: 1,
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 129,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 141,
         colSpan: 1,
         rowSpan: 1,
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 137,
         colSpan: 1,
         rowSpan: 1,
@@ -222,7 +190,7 @@ export const testData = {
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 139,
         colSpan: 1,
         rowSpan: 1,
@@ -230,7 +198,7 @@ export const testData = {
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 153,
         colSpan: 1,
         rowSpan: 1,
@@ -240,45 +208,37 @@ export const testData = {
     [
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 97,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 84,
         colSpan: 1,
         rowSpan: 1,
         value: '最大值',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 135,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 222,
         colSpan: 1,
         rowSpan: 1,
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 129,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 141,
         colSpan: 1,
         rowSpan: 1,
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 137,
-        colSpan: 1,
+        colSpan: 2,
         rowSpan: 1,
         value: '',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 139,
-        colSpan: 1,
-        rowSpan: 1,
-        value: '',
-      },
-      {
-        class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 153,
         colSpan: 1,
         rowSpan: 1,
@@ -288,31 +248,31 @@ export const testData = {
     [
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 97,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 84,
         colSpan: 1,
         rowSpan: 1,
         value: '平均值:',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 135,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 222,
         colSpan: 1,
         rowSpan: 1,
         value: null,
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 129,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 141,
         colSpan: 1,
         rowSpan: 1,
         value: null,
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 137,
         colSpan: 1,
         rowSpan: 1,
@@ -320,7 +280,7 @@ export const testData = {
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 139,
         colSpan: 1,
         rowSpan: 1,
@@ -328,7 +288,7 @@ export const testData = {
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 153,
         colSpan: 1,
         rowSpan: 1,
@@ -338,31 +298,31 @@ export const testData = {
     [
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 97,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 84,
         colSpan: 1,
         rowSpan: 1,
         value: '',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 135,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 222,
         colSpan: 1,
         rowSpan: 1,
         value: '',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 129,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 141,
         colSpan: 1,
         rowSpan: 1,
         value: '',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 137,
         colSpan: 1,
         rowSpan: 1,
@@ -370,7 +330,7 @@ export const testData = {
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 139,
         colSpan: 1,
         rowSpan: 1,
@@ -378,7 +338,7 @@ export const testData = {
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f09ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f0ea9403e1-814f-4019-8956-d54422475429',
         width: 153,
         colSpan: 1,
         rowSpan: 1,
@@ -388,31 +348,31 @@ export const testData = {
     [
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 97,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 84,
         colSpan: 1,
         rowSpan: 1,
         value: '',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 135,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 222,
         colSpan: 1,
         rowSpan: 1,
         value: '',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
-        width: 129,
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
+        width: 141,
         colSpan: 1,
         rowSpan: 1,
         value: '',
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 137,
         colSpan: 1,
         rowSpan: 1,
@@ -420,7 +380,7 @@ export const testData = {
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f19ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f1ea9403e1-814f-4019-8956-d54422475429',
         width: 139,
         colSpan: 1,
         rowSpan: 1,
@@ -428,7 +388,7 @@ export const testData = {
       },
       {
         class:
-          's09ac4be97-cdf2-4d4b-938c-6e1505a94bc3 f09ac4be97-cdf2-4d4b-938c-6e1505a94bc3',
+          's0ea9403e1-814f-4019-8956-d54422475429 f0ea9403e1-814f-4019-8956-d54422475429',
         width: 153,
         colSpan: 1,
         rowSpan: 1,
@@ -436,4 +396,23 @@ export const testData = {
       },
     ],
   ],
+  Querys: [
+    {QueryName: '起始日期', QueryType: '2', Value: '2020/09/17 10:51:03'},
+    {QueryName: '终止日期', QueryType: '2', Value: '2020/09/17 10:51:03'},
+  ],
+  Query: {起始日期: '2020/09/17 10:51:03', 终止日期: '2020/09/17 10:51:03'},
+  DataSources: {
+    HistoryG: [
+      {
+        DataSourceName: '1',
+        DataSourceExpression:
+          ' time >= {Query.起始日期}   and  time <= {Query.终止日期} ',
+        NotUseInterval: 'false',
+        Interval: {Hour: '0', Minute: '0', Second: '1'},
+        HistoryNames: {variable: ['12', '23']},
+        ColIndexs: {colIndex: ['Col1', 'Col0']},
+      },
+    ],
+  },
+  sqlData: {HistoryG: {'1': []}},
 }
