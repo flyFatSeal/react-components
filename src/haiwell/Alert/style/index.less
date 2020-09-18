@@ -1,0 +1,93 @@
+@import "../../../components/style/themes/index";
+@import "../../../components/style/mixins/index";
+
+@alert-prefix-cls: ~"@{haiwell-prefix}-alert";
+
+.@{alert-prefix-cls}{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0.05em;
+
+    @tab-paddingTop: 0.3em;
+    @tab-paddingLeft: 0.5em;
+    @tab-lineHeight: 1.6em;
+
+    // 导航（工具）行样式
+    .nav{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        line-height: @tab-lineHeight;
+
+        .tab{
+            display: inline-block;
+            margin-right: 0.3em;
+            line-height: @tab-lineHeight;
+            height: @tab-lineHeight  + @tab-paddingTop * 2;
+            padding: @tab-paddingTop @tab-paddingLeft;
+            cursor: pointer;
+        }
+
+        .icon{
+            display: inline-block;
+            width: @tab-lineHeight  + @tab-paddingTop * 2;
+            height: @tab-lineHeight  + @tab-paddingTop * 2;
+            padding: @tab-paddingTop;
+            vertical-align: text-bottom;
+            text-align: center;;
+            cursor: pointer;
+        }
+        .icon>span{
+            font-size: @tab-lineHeight;
+        }
+
+        .icon:hover{
+            opacity: 0.9;
+        }
+        .icon:active>span{
+            transform: scale(0.9);
+        }
+    }
+
+    .nav div{
+        white-space: nowrap;
+        height: @tab-lineHeight  + @tab-paddingTop * 2;
+    }
+
+
+    // 表格样式
+    .table{ 
+        height: calc(100% - 2.2em);
+        overflow: auto;
+    }
+
+    // 行样式
+    .line{
+        display: flex;
+    }
+
+    // 格子样式
+    .cell {
+        white-space: nowrap;
+        word-break: keep-all;
+        padding: 0 0.5em;
+        overflow: hidden;
+        text-align: center;
+        flex-shrink: 0;
+        flex-grow: 0;
+        user-select: none;
+        cursor: pointer;
+    }
+    .cell>span{
+        display: inline-block;
+    }
+
+    // 活跃行样式
+    .lively:hover{
+        opacity: 0.7;
+        font-weight: 500;
+    }
+
+
+}
