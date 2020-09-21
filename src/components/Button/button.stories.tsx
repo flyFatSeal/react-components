@@ -1,16 +1,15 @@
 import React, {Fragment} from 'react'
-import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
 
 import Button from './button'
+
 import './style/index'
 
-const defaultButton = () => (
+export const defaultButton = () => (
   <Button onClick={action('clicked')}> default button </Button>
 )
 
-const buttonWithSize = () => {
-  console.info('webpack')
+export const buttonWithSize = () => {
   return (
     <Fragment>
       <Button size="lg" style={{marginRight: '10px'}}>
@@ -21,7 +20,7 @@ const buttonWithSize = () => {
   )
 }
 
-const buttonWithType = () => (
+export const buttonWithType = () => (
   <>
     <Button btnType="primary"> primary button </Button>
     <Button btnType="danger"> danger button </Button>
@@ -31,7 +30,4 @@ const buttonWithType = () => (
   </>
 )
 
-storiesOf('Button Component', module)
-  .add('Button', defaultButton)
-  .add('不同尺寸的 Button', buttonWithSize)
-  .add('不同类型的 Button', buttonWithType)
+export default {title: 'Button', component: Button}

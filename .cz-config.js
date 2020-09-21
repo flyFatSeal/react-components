@@ -2,6 +2,7 @@
 module.exports = {
   types: [
     {value: '✨功能', name: '功能:    一个新的功能'},
+    {value: '🌱完善', name: '完善:    完善一个组件'},
     {value: '🆕组件', name: '组件:    一个新的组件'},
     {value: '🐛修复', name: '修复:    修复一个Bug'},
     {value: '📝文档', name: '文档:    变更的只有文档'},

@@ -1,10 +1,11 @@
-import React, {FC, useCallback, useMemo, useState} from 'react'
+import React, {FC, Fragment, useCallback, useMemo, useState} from 'react'
 
 import {HotTable} from '@handsontable/react'
 import 'handsontable/dist/handsontable.full.css'
 import {useLocalContext} from '../until/locale'
 import {useEffect} from 'react'
 import {Emitter} from '../until/emitter'
+import Toolbar from './Toolbar'
 
 /** 单元格属性*/
 export interface CellProps {
@@ -71,11 +72,14 @@ const Table: FC<HaiwellTableProps> = (props) => {
   }, [rootDiv.id, scoket])
 
   return (
-    <HotTable
-      ref={hotRef}
-      data={tableData.map((row) => row.map((col) => col.value))}
-      settings={hotSetting}
-    />
+    <Fragment>
+      <Toolbar />
+      <HotTable
+        ref={hotRef}
+        data={tableData.map((row) => row.map((col) => col.value))}
+        settings={hotSetting}
+      />
+    </Fragment>
   )
 }
 

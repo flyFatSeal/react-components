@@ -84,12 +84,16 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.2.8",
-    "@storybook/addon-info": "^5.2.8",
+    "@storybook/addon-actions": "^6.0.21",
+    "@storybook/addon-docs": "^6.0.21",
+    "@storybook/addon-info": "^5.3.21",
     "@storybook/addon-jest": "^6.0.21",
-    "@storybook/addon-links": "^5.2.8",
-    "@storybook/addons": "^5.2.8",
-    "@storybook/react": "^5.2.8",
+    "@storybook/addon-links": "^6.0.21",
+    "@storybook/addons": "^6.0.21",
+    "@storybook/cli": "^6.0.21",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/react": "^6.0.21",
+    "@svgr/webpack": "^5.4.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^9.5.0",
     "@types/classnames": "^2.2.10",
@@ -117,11 +121,15 @@
     "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^16.13.1",
     "react-scripts": "3.2.0",
+    "react-svg-loader": "^3.0.3",
     "rimraf": "^3.0.2",
     "semver": "^7.3.2",
+    "storybook-addon-react-docgen": "^1.2.42",
     "ts-jest": "^24.2.0",
+    "ts-loader": "^8.0.4",
     "ts-node": "^8.10.1",
     "typescript": "^3.7.3",
+    "url-loader": "^4.1.0",
     "webpack": "^4.44.1"
   }
 }
