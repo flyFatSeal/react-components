@@ -1,6 +1,5 @@
 import React from "react";
 import "./style/index";
-import { storiesOf } from "@storybook/react";
 import type {
   AlertFieldWidth,
   AlertLang,
@@ -8,7 +7,7 @@ import type {
   AlertDisplayFields,
   AlertConfiguration,
 } from "./types";
-import { HaiwellAlert } from "./HaiwellAlert";
+import { HaiwellAlert, HaiwellAlertProps } from "./index";
 import { MockAlertService } from "./MockAlertService";
 
 const fields: AlertDisplayFields[] = [
@@ -80,13 +79,16 @@ const conf: AlertConfiguration = {
   tabs: ["realtime", "history", "confirmed", "unconfirm"],
 };
 
-storiesOf("Haiwell Alert", module).add("Haiwell Alert", () => (
-  <HaiwellAlert
-    {...{
-      service: new MockAlertService(),
-      targetID: "",
-      lang,
-      conf,
-    }}
-  />
-));
+export const DefaultTable: FC<HaiwellAlertProps> = () => {
+  return (
+    <HaiwellAlert
+      {...{
+        service: new MockAlertService(),
+        lang,
+        conf,
+      }}
+    />
+  )
+}
+
+export default { title: "Haiwell/Alert", component: HaiwellAlert };

@@ -149,7 +149,55 @@ export interface AlertConfiguration {
     tabs: AlertTabs[];
 }
 
+export interface AlertTableData {
+    /**
+     * 当前标签页
+     */
+    tab: AlertTabs;
+    /**
+     * 当前页码
+     */
+    page: number;
+    /**
+     * 当前需要显示的数据
+     */
+    list: (AlertDataWithIndex | undefined)[];
+}
+
 export interface AlertService {
-    updateLatest?: (latest: AlertDataWithIndex[]) => void;
-    readonly confirm: (uid: number) => void;
+
+    /**
+     * 确认报警，如果不传 uid 则会确认所有
+     */
+    confirm(alert?: AlertDataWithIndex): void;
+
+    /**
+     * 数据更新时的回调
+     */
+    onUpdate?: (data: AlertTableData) => void;
+
+    /**
+     * 设置页码
+     * @param page page
+     */
+    setPage(page: number): void;
+
+    /**
+     * 设置当前激活的标签页
+     * @param tab 激活的标签页 
+     */
+    setTab(tab: AlertTabs): void;
+
+    /**
+     * 显示页码输入框
+     * @param callback 回调
+     */
+    inputPage(callback: (page: number | undefined) => void): void;
+
+    /**
+     * 输入日期
+     * @param id 需要附加日历的元素的 id
+     * @param cb 回调
+     */
+    inputDate(id: string, cb: (datetime: string) => void): void;
 }

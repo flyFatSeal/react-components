@@ -1,62 +1,79 @@
+import calender from "./style/calender.png";
 import React from "react";
-import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
+import { CheckSquareOutlined, LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
 import type { BaseComponentProps } from "../../types";
-import type { AlertConfiguration, AlertLang } from "./types";
+import type {
+  AlertConfiguration,
+  AlertLang,
+  AlertService,
+  AlertTableData,
+} from "./types";
 
 export interface AlertNavBarProps extends BaseComponentProps {
-  active: "realtime" | "confirmed" | "history" | "unconfirm";
-  page: number;
+  data: AlertTableData;
+  service: AlertService;
   conf: AlertConfiguration;
   lang: AlertLang;
-  setActive: React.Dispatch<React.SetStateAction<AlertNavBarProps["active"]>>;
 }
 
-const RealTime: FC<AlertNavBarProps> = ({ page }) => {
-  return <> </>;
+const Page: FC<{ data: AlertTableData; service: AlertService }> = ({ data, service, }) => {
+  return <span className="page" onClick={() => {
+    service.inputPage((page) => {
+      if (page !== undefined) {
+        service.setPage(page);
+      }
+    });
+  }}>{data.page + 1}</span>;
 };
-const History: FC<AlertNavBarProps> = ({ active, page }) => {
+
+const History: FC<AlertNavBarProps> = ({ data, service }) => {
   return (
     <div>
-      <span className="icon">
-        <LeftCircleOutlined></LeftCircleOutlined>
+      <span className="icon" style={{ backgroundImage: `url(${calender})` }} >
       </span>
-      <span>{page}</span>
-      <span className="icon">
-        <RightCircleOutlined></RightCircleOutlined>
+      <span className="icon" onClick={() => { service.setPage(data.page - 1); }} >
+        <LeftCircleOutlined />
+      </span>
+      <Page {...{ data, service }} />
+      <span className="icon" onClick={() => { service.setPage(data.page + 1); }} >
+        <RightCircleOutlined />
       </span>
     </div>
   );
 };
-const Confirmed: FC<AlertNavBarProps> = ({ page }) => {
+const Confirmed: FC<AlertNavBarProps> = ({ data, service }) => {
   return (
     <div>
-      <span className="icon">
-        <LeftCircleOutlined></LeftCircleOutlined>
+      <span className="icon" onClick={() => service.setPage(data.page - 1)}>
+        <LeftCircleOutlined />
       </span>
-      <span>{page}</span>
-      <span className="icon">
-        <RightCircleOutlined></RightCircleOutlined>
+      <Page {...{ data, service }} />
+      <span className="icon" onClick={() => service.setPage(data.page + 1)}>
+        <RightCircleOutlined />
       </span>
     </div>
   );
 };
-const Unconfirm: FC<AlertNavBarProps> = ({ page }) => {
+const Unconfirm: FC<AlertNavBarProps> = ({ data, service }) => {
   return (
     <div>
-      <span className="icon">
-        <LeftCircleOutlined></LeftCircleOutlined>
+      <span className="icon" onClick={() => service.confirm()}>
+        <CheckSquareOutlined />
       </span>
-      <span>{page}</span>
-      <span className="icon">
-        <RightCircleOutlined></RightCircleOutlined>
+      <span className="icon" onClick={() => service.setPage(data.page - 1)}>
+        <LeftCircleOutlined />
+      </span>
+      <Page {...{ data, service }} />
+      <span className="icon" onClick={() => service.setPage(data.page + 1)}>
+        <RightCircleOutlined />
       </span>
     </div>
   );
 };
 
 export const AlertNavBar: FC<AlertNavBarProps> = ({
-  active,
-  setActive,
+  data,
+  service,
   conf,
   lang,
   ...rest
@@ -70,7 +87,7 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
       <div>
         {conf.tabs.map((tab, idx) => {
           const backgroundColor =
-            active === tab ? conf.theme.titleBgActive : conf.theme.titleBg;
+            data.tab === tab ? conf.theme.titleBgActive : conf.theme.titleBg;
           return (
             <span
               key={idx}
@@ -81,7 +98,7 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
                 border,
                 borderBottom: "none",
               }}
-              onClick={() => setActive(tab)}
+              onClick={() => service.setTab(tab)}
             >
               {lang[tab]}
             </span>
@@ -89,17 +106,17 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
         })}
       </div>
       <>
-        {active === "history" && (
-          <History {...{ active, setActive, lang, conf, ...rest }}></History>
+        {data.tab === "history" && (
+          <History {...{ data, service, lang, conf, ...rest }}></History>
         )}
-        {active === "confirmed" && (
+        {data.tab === "confirmed" && (
           <Confirmed
-            {...{ active, setActive, lang, conf, ...rest }}
+            {...{ data, service, lang, conf, ...rest }}
           ></Confirmed>
         )}
-        {active === "unconfirm" && (
+        {data.tab === "unconfirm" && (
           <Unconfirm
-            {...{ active, setActive, lang, conf, ...rest }}
+            {...{ data, service, lang, conf, ...rest }}
           ></Unconfirm>
         )}
       </>

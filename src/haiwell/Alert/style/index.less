@@ -37,6 +37,9 @@
             vertical-align: text-bottom;
             text-align: center;;
             cursor: pointer;
+            background-repeat: no-repeat;
+            background-size: @tab-lineHeight;
+            background-position: center;
         }
         .icon>span{
             font-size: @tab-lineHeight;
@@ -45,8 +48,21 @@
         .icon:hover{
             opacity: 0.9;
         }
+
+        .icon:active{
+            background-size: @tab-lineHeight * 0.9;
+        }
         .icon:active>span{
             transform: scale(0.9);
+        }
+
+        .page{
+            display: inline-block;
+            line-height: @tab-lineHeight;
+            padding: @tab-paddingTop;
+            vertical-align: text-bottom;
+            text-align: center;
+            user-select: none;
         }
     }
 

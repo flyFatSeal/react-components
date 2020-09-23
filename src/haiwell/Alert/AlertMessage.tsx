@@ -1,5 +1,4 @@
 import React from "react";
-import { BaseComponentProps } from "../../types";
 import type {
   AlertDataWithIndex,
   AlertConfiguration,
@@ -18,18 +17,6 @@ export interface AlertMessageProps {
   conf: AlertConfiguration;
 }
 
-const defaultData: AlertDataWithIndex = {
-  index: 1,
-  uid: 0,
-  alertTime: " ",
-  value: " ",
-  message: " ",
-  type: " ",
-  variableName: " ",
-  confirmTime: " ",
-  recoveryTime: " ",
-};
-
 export const AlertMessage: FC<AlertMessageProps> = ({
   service,
   conf,
@@ -39,10 +26,10 @@ export const AlertMessage: FC<AlertMessageProps> = ({
     data === undefined
       ? conf.theme.msgRecovery
       : data.recoveryTime !== ""
-      ? conf.theme.msgRecovery //  已恢复
-      : data.confirmTime !== ""
-      ? conf.theme.msgConfirmed // 已确认
-      : conf.theme.msgAlert; //    报警中
+        ? conf.theme.msgRecovery //  已恢复
+        : data.confirmTime !== ""
+          ? conf.theme.msgConfirmed // 已确认
+          : conf.theme.msgAlert; //    报警中
   return (
     <div
       className="line lively"
@@ -59,7 +46,7 @@ export const AlertMessage: FC<AlertMessageProps> = ({
           data.uid !== undefined &&
           data.confirmTime === ""
         ) {
-          service.confirm(data.uid);
+          service.confirm(data);
         }
       }}
     >

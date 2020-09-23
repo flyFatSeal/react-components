@@ -3,17 +3,17 @@ import { BaseComponentProps } from "../../types";
 import { AlertMessage } from "./AlertMessage";
 import { AlertTitle } from "./AlertTitle";
 import type {
-  AlertData,
   AlertDataWithIndex,
   AlertLang,
   AlertConfiguration,
   AlertService,
+  AlertTableData,
 } from "./types";
 
 export interface AlertTableProps extends BaseComponentProps {
   service: AlertService;
   lang: AlertLang;
-  list: AlertData[];
+  data: AlertTableData;
   conf: AlertConfiguration;
 }
 
@@ -23,7 +23,7 @@ export interface AlertTableProps extends BaseComponentProps {
 export const AlertTable: FC<AlertTableProps> = ({
   service,
   lang,
-  list,
+  data,
   conf,
 }) => {
   return (
@@ -35,7 +35,7 @@ export const AlertTable: FC<AlertTableProps> = ({
       }}
     >
       <AlertTitle {...{ conf, lang }}></AlertTitle>
-      {list.map((data, idx) => {
+      {data.list.map((item, idx) => {
         return (
           <AlertMessage
             key={idx}
@@ -43,7 +43,7 @@ export const AlertTable: FC<AlertTableProps> = ({
               service,
               conf,
             }}
-            data={data as AlertDataWithIndex}
+            data={item as AlertDataWithIndex}
           ></AlertMessage>
         );
       })}
