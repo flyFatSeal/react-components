@@ -4,13 +4,14 @@ import {HaiwellTableProps} from './Table'
 import Table from './Table'
 
 import mitt from '../until/emitter'
+import './style/index'
 
 let events = new Map()
 let inst = mitt(events)
 
-setInterval(() => {
-  inst.emit('qianduan', muckQuery)
-}, 5000)
+// setInterval(() => {
+//   inst.emit('qianduan', muckQuery)
+// }, 5000)
 
 export const defaultTable = () => {
   const root = document.createElement('div')

@@ -1,4 +1,12 @@
-import React, {FC, Fragment, useCallback, useMemo, useState} from 'react'
+import React, {
+  FC,
+  Fragment,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 import {HotTable} from '@handsontable/react'
 import 'handsontable/dist/handsontable.full.css'
@@ -6,6 +14,7 @@ import {useLocalContext} from '../until/locale'
 import {useEffect} from 'react'
 import {Emitter} from '../until/emitter'
 import Toolbar from './Toolbar'
+import {ConfigContext} from '../../components/config-provider/context'
 
 /** 单元格属性*/
 export interface CellProps {
@@ -43,16 +52,72 @@ const Table: FC<HaiwellTableProps> = (props) => {
   const [tableData, setTableData] = useState<Array<CellProps[]>>(
     transformData(data, colLength)
   )
+
+  // 使用ref储存一个当前tabledata的副本值 因为HotTable自身能够修改单元格的值 此时如果要执行导出xlxs操作需要同步被修改的值到现有值中并传递给后端
+  // 但是如果同步到useState中会又重新渲染一遍表格 导致性能损失 因此使用一个ref用来同步 被修改后的报表值
+  const storeTableData = useRef(tableData)
+  const hotInstanceRef = useRef<Handsontable>()
+  // 获取默认样式名 和size 全局context
+  const {getPrefixCls} = useContext(ConfigContext)
+
   addGlobalCss(css)
   /** 拿到实例化后的报表实例，并进行一些样式添加操作*/
   const hotRef = useCallback(
     (node) => {
       if (node !== null) {
-        initCellsClassAndMergeCell(node.hotInstance, tableData)
+        const hotInstance = node.hotInstance as Handsontable
+        /** 获取表格实例*/
+        hotInstanceRef.current = hotInstance
+
+        initCellsClassAndMergeCell(hotInstance, tableData)
+        hotInstance.addHook('afterCreateRow', (index: number) => {
+          storeTableData.current.splice(
+            index,
+            0,
+            addRow(storeTableData.current)
+          )
+        })
+        hotInstance.addHook(
+          'afterChange',
+          (changes: Array<readonly [number, number, string, string]>) => {
+            // 表格单元格变化时同步到本地缓存中
+            for (let changedCell of changes) {
+              let storeCell =
+                storeTableData.current[changedCell[0]][changedCell[1]]
+              if (
+                changedCell[3].includes('<div style="width:100%;height:100%">')
+              ) {
+                // 图片变化 -- 只有一种可能图片被清空 或者改成字符串
+                let imageFile = changedCell[3].match(
+                  /(?<=images\/).*?(?=')/g
+                )![0]
+                storeCell.value = {image: imageFile}
+              } else storeCell.value = changedCell[3]
+            }
+          }
+        )
+        hotInstance.addHook('afterRemoveRow', (index: number) => {
+          storeTableData.current.splice(index, 1)
+        })
       }
     },
     [tableData]
   )
+  /** 添加行操作同步到本地缓存中*/
+  const addRow = (table: CellProps[][]) => {
+    let len = table[0].length
+    return new Array(len).fill(
+      JSON.parse(
+        JSON.stringify({
+          class: '',
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+          width: 40,
+        })
+      )
+    )
+  }
 
   const Locale = useLocalContext('Table')
 
@@ -60,6 +125,31 @@ const Table: FC<HaiwellTableProps> = (props) => {
     () => getHotSetting(Locale, rootDiv, colWidthConfig, trConfig),
     [Locale, colWidthConfig, rootDiv, trConfig]
   )
+
+  // table 前缀
+  const prefixCls = getPrefixCls('table')
+
+  /** 导出文件*/
+  const exportEmit = (type: 'csv' | 'xlxs') => {
+    return () => {
+      scoket.emit('table-export', {
+        data: storeTableData.current,
+        css,
+        type,
+      })
+    }
+  }
+  /** 打印*/
+  const printFn = () => {
+    // hotInstanceRef.current?.updateSettings(
+    //   {
+    //     width: document.body.offsetWidth,
+    //     height: document.body.offsetHeight,
+    //   },
+    //   false
+    // )
+    window.print()
+  }
 
   /** 监听报表数据更换*/
   useEffect(() => {
@@ -73,7 +163,12 @@ const Table: FC<HaiwellTableProps> = (props) => {
 
   return (
     <Fragment>
-      <Toolbar />
+      <Toolbar
+        prefixCls={prefixCls}
+        exportXlxsFn={exportEmit('xlxs')}
+        exportCsvFn={exportEmit('csv')}
+        printFn={printFn}
+      />
       <HotTable
         ref={hotRef}
         data={tableData.map((row) => row.map((col) => col.value))}
@@ -184,17 +279,8 @@ const getHotSetting = (
         row_below: {
           name: Locale.rowBelow,
         },
-        col_left: {
-          name: Locale.colLeft,
-        },
-        col_right: {
-          name: Locale.colRight,
-        },
         remove_row: {
           name: Locale.removeRow,
-        },
-        remove_col: {
-          name: Locale.removeCol,
         },
         undo: {
           name: Locale.undo,
@@ -244,9 +330,6 @@ const getHotSetting = (
         },
         cut: {
           name: Locale.cut,
-        },
-        mergeCells: {
-          name: Locale.mergeCells,
         },
         freezeCol: {
           name: Locale.freezeCol,
