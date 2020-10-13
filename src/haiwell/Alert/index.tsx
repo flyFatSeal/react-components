@@ -1,25 +1,14 @@
 import "./style/index";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { Alert } from "./Alert";
-import {
-    AlertLang,
-    AlertService,
-    AlertConfiguration,
-    AlertTableData
-} from "./types";
+
+console.log("alert2 v1");
 
 /**
  * 报警属性
  */
-export interface HaiwellAlertProps {
-    /** 报警服务 */
-    service: AlertService;
-    /** 报警多语言 */
-    lang: AlertLang;
-    /** 报警配置 */
-    conf: AlertConfiguration;
-}
+export type HaiwellAlertProps = alert2.client.AlertProps;
 
 /**
  * 报警图元
@@ -29,20 +18,13 @@ export const HaiwellAlert: FC<HaiwellAlertProps> = ({
     lang,
     conf,
 }) => {
-    const [data, setData] = useState<AlertTableData>({
-        tab: "realtime",
-        page: 1,
-        list: new Array(10),
-    });
-    useEffect(() => {
-        service.onUpdate = setData;
-    }, [service]);
+    const [data, setData] = useState<alert2.client.TableData>(service.getData());
+    service.onUpdate = setData;
     return (
         <Alert
             {...{
                 lang,
                 conf,
-                service,
                 data,
             }}
         ></Alert>

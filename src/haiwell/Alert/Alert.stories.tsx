@@ -1,27 +1,20 @@
 import React from "react";
 import "./style/index";
-import type {
-  AlertFieldWidth,
-  AlertLang,
-  AlertTheme,
-  AlertDisplayFields,
-  AlertConfiguration,
-} from "./types";
 import { HaiwellAlert, HaiwellAlertProps } from "./index";
-import { MockAlertService } from "./MockAlertService";
+import { MockAlertDataBuilder } from "./MockAlertService";
 
-const fields: AlertDisplayFields[] = [
+const fields: alert2.client.DisplayFields[] = [
   "index",
   "alertTime",
   "confirmTime",
   "message",
-  "recoveryTime",
+  // "recoveryTime",
   "type",
   "value",
   "variableName",
 ];
 
-const width: AlertFieldWidth = {
+const width: alert2.client.FieldWidth = {
   index: 4,
   uid: 0,
   alertTime: 10,
@@ -38,13 +31,15 @@ for (let field of fields) {
   lineWidth += 1 + width[field];
 }
 
-const theme: AlertTheme = {
+const theme: alert2.client.Theme = {
+  wordWrap: false,
+  paddingColor: "#CCC",
+  padding: "3px",
   navColor: "#aaa",
   navFocusBg: "#ccc",
   navBorder: "#ddd",
   navFontSize: "16px",
   titleBg: "lightblue",
-  titleBgActive: "gold",
   titleColor: "blue",
   titleFontSize: "16px",
   titleBoderColor: "gray",
@@ -57,7 +52,7 @@ const theme: AlertTheme = {
   lineWidth: lineWidth + "em",
 };
 
-const lang: AlertLang = {
+const lang: alert2.client.Lang = {
   index: "序号",
   uid: "uid",
   alertTime: "报警时间",
@@ -72,18 +67,21 @@ const lang: AlertLang = {
   confirmed: "已确认报警",
   unconfirm: "未确认报警",
 };
-const conf: AlertConfiguration = {
+const conf: alert2.client.Configuration = {
   width,
   theme,
   fields,
   tabs: ["realtime", "history", "confirmed", "unconfirm"],
+  pageSize: 10,
 };
+
+const mockBuilder = new MockAlertDataBuilder();
 
 export const DefaultTable: FC<HaiwellAlertProps> = () => {
   return (
     <HaiwellAlert
       {...{
-        service: new MockAlertService(),
+        service: mockBuilder,
         lang,
         conf,
       }}

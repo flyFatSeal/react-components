@@ -7,7 +7,8 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 0.05em;
+    height: 100%;
+    width: 100%;
 
     @tab-paddingTop: 0.3em;
     @tab-paddingLeft: 0.5em;
@@ -19,9 +20,13 @@
         justify-content: space-between;
         flex-wrap: wrap;
         line-height: @tab-lineHeight;
+        background-color: #FFF;
+
+        .tabs, .icons{
+            display: inline-flex;
+        }
 
         .tab{
-            display: inline-block;
             margin-right: 0.3em;
             line-height: @tab-lineHeight;
             height: @tab-lineHeight  + @tab-paddingTop * 2;
@@ -30,7 +35,6 @@
         }
 
         .icon{
-            display: inline-block;
             width: @tab-lineHeight  + @tab-paddingTop * 2;
             height: @tab-lineHeight  + @tab-paddingTop * 2;
             padding: @tab-paddingTop;
@@ -76,17 +80,21 @@
     .table{ 
         height: calc(100% - 2.2em);
         overflow: auto;
+        background-color: #FFF;
+        display: flex;
+        flex-direction: column;
     }
 
     // 行样式
     .line{
         display: flex;
+        flex-grow: 1;
+        flex-shrink: 0;
+        min-height: 1.6em;
     }
 
     // 格子样式
     .cell {
-        white-space: nowrap;
-        word-break: keep-all;
         padding: 0 0.5em;
         overflow: hidden;
         text-align: center;
@@ -94,6 +102,9 @@
         flex-grow: 0;
         user-select: none;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .cell>span{
         display: inline-block;

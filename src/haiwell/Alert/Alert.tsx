@@ -9,9 +9,11 @@ export const Alert: FC<AlertProps> = ({
   conf,
   ...common
 }) => {
+  const realtimeOnly = conf.tabs.length === 1 && conf.tabs[0] === "realtime";
+
   return (
-    <div className={`${prefixCls}-alert`} style={{ border: conf.theme.border }}>
-      <AlertNavBar {...{ prefixCls, conf, ...common }} />
+    <div className={`${prefixCls}-alert`} style={{ backgroundColor: conf.theme.paddingColor, padding: conf.theme.padding }}>
+      {!realtimeOnly && <AlertNavBar {...{ prefixCls, conf, ...common }} />}
       <AlertTable {...{ prefixCls, conf, ...common }}></AlertTable>
     </div>
   );

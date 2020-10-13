@@ -1,7 +1,7 @@
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // @ts-check
 const { join } = require("path");
 const base = (path) => join(__dirname, "../", path);
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /**
  * @type {import("webpack").Configuration}
@@ -42,7 +42,6 @@ module.exports = {
         }),
     ],
 
-
     module: {
         rules: [
             {
@@ -51,7 +50,7 @@ module.exports = {
                 exclude: /node_modules/,
                 options: {
                     transpileOnly: true,
-                    configFile: base("./tsconfig.json"),
+                    configFile: base("./tsconfig.build.json"),
                 },
             },
             {

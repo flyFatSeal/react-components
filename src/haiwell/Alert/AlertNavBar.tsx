@@ -1,70 +1,71 @@
 import calender from "./style/calender.png";
 import React from "react";
-import { CheckSquareOutlined, LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
+import CheckSquareOutlined from "@ant-design/icons/CheckSquareOutlined";
+import LeftCircleOutlined from "@ant-design/icons/LeftCircleOutlined";
+import RightCircleOutlined from "@ant-design/icons/RightCircleOutlined";
 import type { BaseComponentProps } from "../../types";
-import type {
-  AlertConfiguration,
-  AlertLang,
-  AlertService,
-  AlertTableData,
-} from "./types";
 
 export interface AlertNavBarProps extends BaseComponentProps {
-  data: AlertTableData;
-  service: AlertService;
-  conf: AlertConfiguration;
-  lang: AlertLang;
+  data: alert2.client.TableData;
+  conf: alert2.client.Configuration;
+  lang: alert2.client.Lang;
 }
 
-const Page: FC<{ data: AlertTableData; service: AlertService }> = ({ data, service, }) => {
+const Page: FC<{ data: alert2.client.TableData }> = ({ data }) => {
   return <span className="page" onClick={() => {
-    service.inputPage((page) => {
+    data.inputPage((page) => {
       if (page !== undefined) {
-        service.setPage(page);
+        data.setPage(page);
       }
     });
   }}>{data.page + 1}</span>;
 };
 
-const History: FC<AlertNavBarProps> = ({ data, service }) => {
+const History: FC<AlertNavBarProps> = ({ data }) => {
   return (
-    <div>
-      <span className="icon" style={{ backgroundImage: `url(${calender})` }} >
+    <div className="icons">
+      <span className="icon" style={{ backgroundImage: `url(${calender})` }}
+        onClick={() => {
+          data.inputDate((ndate) => {
+            console.log("date:", ndate);
+          })
+        }}
+      >
       </span>
-      <span className="icon" onClick={() => { service.setPage(data.page - 1); }} >
+      <span className="icon" onClick={() => { data.setPage(data.page - 1); }} >
         <LeftCircleOutlined />
       </span>
-      <Page {...{ data, service }} />
-      <span className="icon" onClick={() => { service.setPage(data.page + 1); }} >
+      <Page {...{ data }} />
+      <span className="icon" onClick={() => { data.setPage(data.page + 1); }} >
         <RightCircleOutlined />
       </span>
     </div>
   );
 };
-const Confirmed: FC<AlertNavBarProps> = ({ data, service }) => {
+const Confirmed: FC<AlertNavBarProps> = ({ data }) => {
   return (
-    <div>
-      <span className="icon" onClick={() => service.setPage(data.page - 1)}>
+    <div className="icons">
+      <span className="icon" onClick={() => data.setPage(data.page - 1)}>
         <LeftCircleOutlined />
       </span>
-      <Page {...{ data, service }} />
-      <span className="icon" onClick={() => service.setPage(data.page + 1)}>
+      <Page {...{ data }} />
+      <span className="icon" onClick={() => data.setPage(data.page + 1)}>
         <RightCircleOutlined />
       </span>
     </div>
   );
 };
-const Unconfirm: FC<AlertNavBarProps> = ({ data, service }) => {
+const Unconfirm: FC<AlertNavBarProps> = ({ data }) => {
   return (
-    <div>
-      <span className="icon" onClick={() => service.confirm()}>
+    <div className="icons">
+      <span className="icon" onClick={() => data.confirm()}>
         <CheckSquareOutlined />
       </span>
-      <span className="icon" onClick={() => service.setPage(data.page - 1)}>
+      <span className="icon" onClick={() => data.setPage(data.page - 1)}>
         <LeftCircleOutlined />
       </span>
-      <Page {...{ data, service }} />
-      <span className="icon" onClick={() => service.setPage(data.page + 1)}>
+      <Page {...{ data }} />
+      <span className="icon" onClick={() => data.setPage(data.page + 1)}>
         <RightCircleOutlined />
       </span>
     </div>
@@ -73,7 +74,6 @@ const Unconfirm: FC<AlertNavBarProps> = ({ data, service }) => {
 
 export const AlertNavBar: FC<AlertNavBarProps> = ({
   data,
-  service,
   conf,
   lang,
   ...rest
@@ -84,10 +84,9 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
   const border = `1px solid ${borderColor}`;
   return (
     <div className="nav" style={{ fontSize }}>
-      <div>
+      <div className="tabs">
         {conf.tabs.map((tab, idx) => {
-          const backgroundColor =
-            data.tab === tab ? conf.theme.titleBgActive : conf.theme.titleBg;
+          const backgroundColor = data.tab === tab ? conf.theme.navFocusBg : "";
           return (
             <span
               key={idx}
@@ -98,7 +97,7 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
                 border,
                 borderBottom: "none",
               }}
-              onClick={() => service.setTab(tab)}
+              onClick={() => data.setTab(tab)}
             >
               {lang[tab]}
             </span>
@@ -107,16 +106,16 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
       </div>
       <>
         {data.tab === "history" && (
-          <History {...{ data, service, lang, conf, ...rest }}></History>
+          <History {...{ data, lang, conf, ...rest }}></History>
         )}
         {data.tab === "confirmed" && (
           <Confirmed
-            {...{ data, service, lang, conf, ...rest }}
+            {...{ data, lang, conf, ...rest }}
           ></Confirmed>
         )}
         {data.tab === "unconfirm" && (
           <Unconfirm
-            {...{ data, service, lang, conf, ...rest }}
+            {...{ data, lang, conf, ...rest }}
           ></Unconfirm>
         )}
       </>

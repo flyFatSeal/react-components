@@ -1,4 +1,3 @@
-const { json } = require("body-parser");
 // @ts-check
 const { join } = require("path");
 const base = (path) => join(__dirname, "../", path);
@@ -27,7 +26,7 @@ module.exports = {
         minimize: false
     },
 
-    devtool: "#inline-source-map",
+    devtool: "#cheap-eval-source-map",
     module: {
         rules: [
             {
@@ -36,7 +35,7 @@ module.exports = {
                 exclude: /node_modules/,
                 options: {
                     transpileOnly: true,
-                    configFile: base("./tsconfig.json"),
+                    configFile: base("./tsconfig.dev.json"),
                 },
             },
             {

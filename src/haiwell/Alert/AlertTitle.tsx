@@ -1,12 +1,11 @@
 import React from "react";
-import type { AlertLang, AlertConfiguration } from "./types";
 
 /**
  * 报警标题栏属性
  */
 export interface AlertTitleProps {
-  lang: AlertLang;
-  conf: AlertConfiguration;
+  lang: alert2.client.Lang;
+  conf: alert2.client.Configuration;
 }
 
 /**
@@ -19,7 +18,7 @@ export const AlertTitle: FC<AlertTitleProps> = ({ lang, conf }) => {
       style={{
         backgroundColor: conf.theme.titleBg,
         color: conf.theme.titleColor,
-        width: conf.theme.lineWidth,
+        minWidth: conf.theme.lineWidth,
         fontSize: conf.theme.titleFontSize,
       }}
     >

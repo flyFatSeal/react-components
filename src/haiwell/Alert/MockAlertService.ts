@@ -1,5 +1,3 @@
-import { AlertDataWithIndex, AlertService, AlertTableData, AlertTabs } from "./types";
-
 function ranText(prefix: string = "", len: number = 9): string {
     let str = prefix;
     for (let i = 0; i < len; i++) {
@@ -19,30 +17,33 @@ function ranDate(latest: number = Date.now()): Date {
 let DATA_INDEX = 0;
 let UID = 0;
 
-function ranData(): AlertDataWithIndex {
+function ranData(): alert2.client.DataWithIndex {
+    const time = ranDate().toLocaleString();
+    const isAlert = Math.random() >= 0.5;
+
     return {
         index: ++DATA_INDEX,
         uid: ++UID,
-        alertTime: ranDate().toLocaleString(),
+        alertTime: isAlert ? time : '',
         value: ranText("value:"),
         message: ranText("message:", 12),
-        type: ranText("type:", 6),
+        type: ranOption("alert", "recovery"),
         variableName: ranText("name:", 8),
         confirmTime: ranOption("", ranDate().toLocaleString()),
-        recoveryTime: ranOption("", ranDate().toLocaleString(),),
+        recoveryTime: isAlert ? "" : time,
     };
 }
 
-export class MockAlertService implements AlertService {
+export class MockAlertDataBuilder {
     private readonly pageSize = 10;
 
-    private _tab: AlertTabs = "realtime";
+    private _tab: alert2.common.DataType = "realtime";
 
     private historyPage = 0;
     private unconfirmPage = 0;
     private confirmPage = 0;
 
-    private latest: AlertDataWithIndex[];
+    private latest: alert2.client.DataWithIndex[];
 
     constructor() {
         this.latest = [];
@@ -60,9 +61,25 @@ export class MockAlertService implements AlertService {
         }, timeout);
     }
 
-    onUpdate?: (d: AlertTableData) => void;
+    getData() {
+        const tab = this._tab;
+        let page = 0;
+        switch (tab) {
+            case "realtime": page = 0; break;
+            case "history": page = this.historyPage; break;
+            case "unconfirm": page = this.unconfirmPage; break;
+            case "confirmed": page = this.confirmPage; break;
+        }
 
-    readonly confirm = (alert?: AlertDataWithIndex) => {
+        return {
+            page, tab, alerts: this.latest, confirm: this.confirm, setPage: this.setPage, setTab: this.setTab, inputPage: this.inputPage, inputDate: this.inputDate
+        };
+
+    };
+
+    onUpdate?: (d: alert2.client.TableData) => void;
+
+    readonly confirm = (alert?: alert2.client.DataWithIndex) => {
         if (alert === undefined) {
             const date = new Date().toLocaleString();
             this.latest.forEach(l => l.confirmTime = date);
@@ -81,11 +98,12 @@ export class MockAlertService implements AlertService {
         }
     };
 
-    private emitUpdate(data: AlertDataWithIndex[]): void {
+    private emitUpdate(data: alert2.client.DataWithIndex[]): void {
         if (this.onUpdate === undefined) return;
-        const list = [];
+        console.log("emit update");
+        const alerts = [];
         for (let i = 0; i < this.pageSize; i++) {
-            list[i] = data[i];
+            alerts[i] = data[i];
         }
         const tab = this._tab;
         let page = 0;
@@ -94,14 +112,14 @@ export class MockAlertService implements AlertService {
             case "unconfirm": page = this.unconfirmPage; break;
             case "history": page = this.historyPage; break;
         }
-        this.onUpdate({ page, tab, list, });
+        this.onUpdate({ page, tab, alerts, confirm: this.confirm, setPage: this.setPage, setTab: this.setTab, inputPage: this.inputPage, inputDate: this.inputDate });
     }
 
-    readonly query = (tab: AlertTabs, page: number, pageSize: number): void => {
+    readonly query = (tab: alert2.common.DataType, page: number, pageSize: number): void => {
         console.log("query type: %s, page: %d, pageSize: %d", tab, page, pageSize);
     }
 
-    setPage(p: number): void {
+    setPage = (p: number): void => {
         console.log("set page: %d", p);
         if (p < 0) return;
         switch (this._tab) {
@@ -119,14 +137,14 @@ export class MockAlertService implements AlertService {
         this.emitUpdate(this.latest);
     }
 
-    setTab(tab: AlertTabs): void {
+    setTab = (tab: alert2.common.DataType): void => {
         console.log("set tab: ", tab);
         if (tab === this._tab) return;
         this._tab = tab;
         this.emitUpdate(this.latest);
     }
 
-    inputPage(cb: (page: number | undefined) => void): void {
+    inputPage = (cb: (page: number | undefined) => void): void => {
         const inp = window.prompt("请输入页码：");
         if (inp === null) {
             return cb(undefined);
@@ -138,7 +156,7 @@ export class MockAlertService implements AlertService {
         return cb(page - 1);
     }
 
-    inputDate(id: string, cb: (datetime: string) => void): void {
+    inputDate = (cb: (datetime: { s: number, e: number }) => void): void => {
     }
 }
 
