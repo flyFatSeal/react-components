@@ -27,6 +27,7 @@ export const AlertMessage: FC<AlertMessageProps> = ({
           : conf.theme.msgAlert; //    报警中
   return (
     <div
+      title={alert === undefined ? "undefined" : typeof alert.uid === "number" ? alert.uid.toString() : ""}
       className="line lively"
       style={{
         color,
@@ -39,6 +40,7 @@ export const AlertMessage: FC<AlertMessageProps> = ({
         if (
           alert !== undefined &&
           alert.uid !== undefined &&
+          alert.uid >= 0 &&
           alert.confirmTime === ""
         ) {
           data.confirm(alert);
@@ -50,10 +52,12 @@ export const AlertMessage: FC<AlertMessageProps> = ({
         const borderLeft = idx === 0 ? "" : conf.theme.border;
         let text = "";
         if (alert !== undefined) {
-          if (field === "alertTime") {
-            text = alert.alertTime || alert.recoveryTime;
-          } else if (field === "recoveryTime") {
-            console.warn("201010161641, unsupport recovery time");
+          if (field === "recoveryTime") {
+            // console.warn("201010161641, unsupport recovery time");
+          } else if (field === "message") {
+            text = alert[field];
+            const lang = data.dataLang[alert.variableID];
+            text = lang === undefined ? text : (lang[text] || text);
           } else {
             text = alert[field].toString();
           }

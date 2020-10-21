@@ -3,7 +3,6 @@ import { BaseComponentProps } from "../../types";
 import { AlertMessage } from "./AlertMessage";
 import { AlertTitle } from "./AlertTitle";
 export interface AlertTableProps extends BaseComponentProps {
-  lang: alert2.client.Lang;
   data: alert2.client.TableData;
   conf: alert2.client.Configuration;
 }
@@ -12,7 +11,6 @@ export interface AlertTableProps extends BaseComponentProps {
  * 报警内容的表格
  */
 export const AlertTable: FC<AlertTableProps> = ({
-  lang,
   data,
   conf,
 }) => {
@@ -22,7 +20,8 @@ export const AlertTable: FC<AlertTableProps> = ({
   }
   let idx = data.page * pageSize;
   const alerts: (alert2.client.DataWithIndex | undefined)[] = [];
-  for (var i = 0; i < pageSize; i++) {
+  const start = Math.max(0, data.alerts.length - pageSize);
+  for (var i = start; i < start + pageSize; i++) {
     const alert = data.alerts[i] as undefined | Partial<alert2.client.DataWithIndex>;
     if (alert !== undefined) {
       alert.index = ++idx;
@@ -45,18 +44,16 @@ export const AlertTable: FC<AlertTableProps> = ({
           }
       }
     >
-      <AlertTitle {...{ conf, lang }}></AlertTitle>
-      {alerts.map((item, idx) => {
-        return (
-          <AlertMessage
-            key={idx}
-            {...{
-              data,
-              conf,
-            }}
-            alert={item as alert2.client.DataWithIndex}
-          ></AlertMessage>
-        );
+      <AlertTitle {...{ conf, data }}></AlertTitle>
+      {alerts.map((alert, idx) => {
+        let key = idx;
+        if (alert !== undefined) {
+          key = alert.uid;
+          if (alert.recoveryTime !== "") {
+            key *= -1;
+          }
+        }
+        return (<AlertMessage {...{ key, data, conf, alert }}></AlertMessage>);
       })}
     </div>
   );

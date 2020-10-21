@@ -2,6 +2,7 @@ import React from "react";
 import "./style/index";
 import { HaiwellAlert, HaiwellAlertProps } from "./index";
 import { MockAlertDataBuilder } from "./MockAlertService";
+import { env } from "./data/env";
 
 const fields: alert2.client.DisplayFields[] = [
   "index",
@@ -16,7 +17,6 @@ const fields: alert2.client.DisplayFields[] = [
 
 const width: alert2.client.FieldWidth = {
   index: 4,
-  uid: 0,
   alertTime: 10,
   value: 8,
   message: 20,
@@ -52,9 +52,8 @@ const theme: alert2.client.Theme = {
   lineWidth: lineWidth + "em",
 };
 
-const lang: alert2.client.Lang = {
+const lang: alert2.client.UiLang = {
   index: "序号",
-  uid: "uid",
   alertTime: "报警时间",
   value: "当前值",
   message: "报警消息",
@@ -67,6 +66,7 @@ const lang: alert2.client.Lang = {
   confirmed: "已确认报警",
   unconfirm: "未确认报警",
 };
+
 const conf: alert2.client.Configuration = {
   width,
   theme,
@@ -82,8 +82,8 @@ export const DefaultTable: FC<HaiwellAlertProps> = () => {
     <HaiwellAlert
       {...{
         service: mockBuilder,
-        lang,
         conf,
+        env,
       }}
     />
   )

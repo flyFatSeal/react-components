@@ -20,7 +20,6 @@ let UID = 0;
 function ranData(): alert2.client.DataWithIndex {
     const time = ranDate().toLocaleString();
     const isAlert = Math.random() >= 0.5;
-
     return {
         index: ++DATA_INDEX,
         uid: ++UID,
@@ -28,13 +27,14 @@ function ranData(): alert2.client.DataWithIndex {
         value: ranText("value:"),
         message: ranText("message:", 12),
         type: ranOption("alert", "recovery"),
+        variableID: 0,
         variableName: ranText("name:", 8),
         confirmTime: ranOption("", ranDate().toLocaleString()),
         recoveryTime: isAlert ? "" : time,
     };
 }
 
-export class MockAlertDataBuilder {
+export class MockAlertDataBuilder implements alert2.client.Service {
     private readonly pageSize = 10;
 
     private _tab: alert2.common.DataType = "realtime";
@@ -72,7 +72,16 @@ export class MockAlertDataBuilder {
         }
 
         return {
-            page, tab, alerts: this.latest, confirm: this.confirm, setPage: this.setPage, setTab: this.setTab, inputPage: this.inputPage, inputDate: this.inputDate
+            page,
+            tab,
+            alerts: this.latest,
+            confirm: this.confirm,
+            setPage: this.setPage,
+            setTab: this.setTab,
+            inputPage: this.inputPage,
+            inputDate: this.inputDate,
+            uiLang: Object.create(null),
+            dataLang: Object.create(null),
         };
 
     };
@@ -112,7 +121,7 @@ export class MockAlertDataBuilder {
             case "unconfirm": page = this.unconfirmPage; break;
             case "history": page = this.historyPage; break;
         }
-        this.onUpdate({ page, tab, alerts, confirm: this.confirm, setPage: this.setPage, setTab: this.setTab, inputPage: this.inputPage, inputDate: this.inputDate });
+        this.onUpdate(this.getData());
     }
 
     readonly query = (tab: alert2.common.DataType, page: number, pageSize: number): void => {
@@ -144,20 +153,9 @@ export class MockAlertDataBuilder {
         this.emitUpdate(this.latest);
     }
 
-    inputPage = (cb: (page: number | undefined) => void): void => {
-        const inp = window.prompt("请输入页码：");
-        if (inp === null) {
-            return cb(undefined);
-        }
-        const page = parseInt(inp);
-        if (isNaN(page) || !Number.isInteger(page)) {
-            return cb(undefined);
-        }
-        return cb(page - 1);
-    }
+    inputPage = (): void => { }
 
-    inputDate = (cb: (datetime: { s: number, e: number }) => void): void => {
-    }
+    inputDate = (): void => { }
 }
 
 

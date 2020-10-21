@@ -4,14 +4,15 @@ import React from "react";
  * 报警标题栏属性
  */
 export interface AlertTitleProps {
-  lang: alert2.client.Lang;
   conf: alert2.client.Configuration;
+  data: alert2.client.TableData;
 }
 
 /**
  * 报警标题栏
  */
-export const AlertTitle: FC<AlertTitleProps> = ({ lang, conf }) => {
+export const AlertTitle: FC<AlertTitleProps> = ({ data, conf }) => {
+  const lang = data.uiLang;
   return (
     <div
       className="line"

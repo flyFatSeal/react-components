@@ -8,16 +8,11 @@ import type { BaseComponentProps } from "../../types";
 export interface AlertNavBarProps extends BaseComponentProps {
   data: alert2.client.TableData;
   conf: alert2.client.Configuration;
-  lang: alert2.client.Lang;
 }
 
 const Page: FC<{ data: alert2.client.TableData }> = ({ data }) => {
   return <span className="page" onClick={() => {
-    data.inputPage((page) => {
-      if (page !== undefined) {
-        data.setPage(page);
-      }
-    });
+    data.inputPage();
   }}>{data.page + 1}</span>;
 };
 
@@ -26,9 +21,7 @@ const History: FC<AlertNavBarProps> = ({ data }) => {
     <div className="icons">
       <span className="icon" style={{ backgroundImage: `url(${calender})` }}
         onClick={() => {
-          data.inputDate((ndate) => {
-            console.log("date:", ndate);
-          })
+          data.inputDate();
         }}
       >
       </span>
@@ -75,7 +68,6 @@ const Unconfirm: FC<AlertNavBarProps> = ({ data }) => {
 export const AlertNavBar: FC<AlertNavBarProps> = ({
   data,
   conf,
-  lang,
   ...rest
 }) => {
   const fontSize = conf.theme.titleFontSize;
@@ -99,23 +91,23 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
               }}
               onClick={() => data.setTab(tab)}
             >
-              {lang[tab]}
+              {data.uiLang[tab]}
             </span>
           );
         })}
       </div>
       <>
         {data.tab === "history" && (
-          <History {...{ data, lang, conf, ...rest }}></History>
+          <History {...{ data, conf, ...rest }}></History>
         )}
         {data.tab === "confirmed" && (
           <Confirmed
-            {...{ data, lang, conf, ...rest }}
+            {...{ data, conf, ...rest }}
           ></Confirmed>
         )}
         {data.tab === "unconfirm" && (
           <Unconfirm
-            {...{ data, lang, conf, ...rest }}
+            {...{ data, conf, ...rest }}
           ></Unconfirm>
         )}
       </>
