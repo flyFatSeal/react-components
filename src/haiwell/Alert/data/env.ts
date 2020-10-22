@@ -7,14 +7,9 @@ const socket: alert2.ISocket = {
     emit: console.log.bind(console),
 };
 
-const getLangID = () => 0;
-const inputNumber = (): void => {
-    // const str = prompt("input number:");
-};
-
-const inputDate = (): void => {
-    // return callback({ s: 0, e: 1 });
-};
+const getLang = () => { return { id: 0, name: "zh" } };
+const inputNumber = (): void => { };
+const inputDate = (): void => { };
 
 const getVariableName = (id: number) => {
     console.warn("mock getVariableName: " + id);
@@ -38,11 +33,13 @@ export const defaultUiLang: alert2.client.UiLang = {
     history: "历史报警",
     confirmed: "已确认报警",
     unconfirm: "未确认报警",
+    alert: "报警",
+    recovery: "恢复",
 };
 
 export const env: alert2.Env = {
     socket,
-    getLangID,
+    getLang,
     inputNumber,
     inputDate,
     getVariableName,
@@ -56,12 +53,16 @@ export function setup(e: alert2.Env): void {
     }
     inited = true;
     env.socket = e.socket;
-    env.getLangID = e.getLangID;
+    env.getLang = e.getLang;
     env.inputNumber = e.inputNumber;
     env.inputDate = e.inputDate;
-    env.socket.on("alert2", handleSocket);
+    env.sysLangChange = e.sysLangChange;
     env.getVariableName = e.getVariableName;
-    env.socket.emit("alert2", { type: "req.lang", data: { langID: env.getLangID() } });
+
+
+    const lang = env.getLang();
+    env.socket.on("alert2", handleSocket);
+    env.socket.emit("alert2", { type: "req.lang", data: { langID: lang.id, name: lang.name } });
     env.socket.emit("alert2", { type: "req.latest" });
     env.sysLangChange(changeLang);
 }

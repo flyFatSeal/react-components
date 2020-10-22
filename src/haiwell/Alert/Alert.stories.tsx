@@ -65,6 +65,8 @@ const lang: alert2.client.UiLang = {
   history: "历史报警",
   confirmed: "已确认报警",
   unconfirm: "未确认报警",
+  alert: "报警",
+  recovery: "恢复",
 };
 
 const conf: alert2.client.Configuration = {

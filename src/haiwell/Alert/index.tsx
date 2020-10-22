@@ -22,7 +22,6 @@ export const HaiwellAlert: FC<HaiwellAlertProps> = ({
     service,
 }) => {
     const [data, setData] = useState<alert2.client.TableData>(service.getData());
-    console.log("geted data", data);
     service.onUpdate = setData;
     return (
         <Alert

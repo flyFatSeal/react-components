@@ -2,7 +2,7 @@ declare namespace alert2 {
 
     export interface Env {
         socket: ISocket;
-        getLangID(): number;
+        getLang(): { id: number, name: string };
         inputNumber(defaultValue?: number, callback: (page: number | undefined) => void): void;
         inputDate(defaultValue?: { s: number, e: number }, cb: (timerange: { s: number, e: number } | undefined) => void): void;
         getVariableName(variableID: number): string;
@@ -52,7 +52,7 @@ declare namespace alert2 {
         /** 报警标签页 */
         export type Tabs = "realtime" | "history" | "confirmed" | "unconfirm";
         /** 报警多语言 */
-        export type UiLang = Record<DisplayFields | Tabs, string>;
+        export type UiLang = Record<DisplayFields | Tabs | "alert" | "recovery", string>;
         /** 单个变量 -> 单个值信息的多语言 */
         export type DataFieldLang = Record<string, string | undefined>;
         /** 所有变量 -> 单个变量的所有多语言 */
@@ -218,6 +218,7 @@ declare namespace alert2 {
         export interface LanguageRequest {
             /** 语言 id */
             langID: number;
+            name: string;
         }
 
         /** 获取语言响应 */

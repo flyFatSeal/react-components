@@ -2,7 +2,7 @@ import { DataService } from "./DataService";
 import { defaultUiLang, env, MAX_PAGE_SIZE } from "./env";
 
 const REALTIME: Record<number, alert2.client.ServerData> = Object.create(null);
-const UILang: Record<number, { [k: string]: string } | undefined> = Object.create(null);
+const UILang: Record<number, { [k: string]: string } | undefined | number> = Object.create(null);
 const DataLang: alert2.client.DataAllLang = Object.create(null)
 
 export const ALERT_LIST_MAP: Record<alert2.client.Tabs, alert2.client.ServerData[]> = {
@@ -76,7 +76,7 @@ function onRealTime(data: alert2.common.RealtimeResponse) {
 function onLang(data: alert2.common.LanguageResponse) {
     UILang[data.langID] = data.ui;
     DataLang[data.langID] = data.data;
-    if (data.langID === env.getLangID()) {
+    if (data.langID === env.getLang().id) {
         DataService.update();
     }
 }
@@ -130,16 +130,16 @@ export function getRealTime(): alert2.client.ServerData[] {
 }
 
 export function getUiLang(): Record<string, string> {
-    const langID = env.getLangID();
+    const langID = env.getLang().id;
     let lang = UILang[langID];
-    if (lang === undefined) {
+    if (lang === undefined || typeof lang === "number") {
         return defaultUiLang;
     }
     return lang;
 }
 
 export function getDataLang(): alert2.client.DataAllVarLang {
-    const langID = env.getLangID();
+    const langID = env.getLang().id;
     const lang = DataLang[langID];
     if (lang === undefined) {
         return Object.create(null);
@@ -151,11 +151,18 @@ export function query(tab: alert2.common.DataType, offset: number, limit: number
     env.socket.emit("alert2", { type: "req.query", data: { tab, limit, offset, timeEnd, timeStart } });
 }
 
+/**
+ * 更新语言
+ */
 export function changeLang() {
-    const langID = env.getLangID();
-    if (langID in UILang) {
-        env.socket.emit("alert2", { type: "req.lang", data: { langID } });
-    } else {
-        DataService.update();
+    const info = env.getLang();
+    const lang = UILang[info.id];
+    if (typeof lang === "number" && Date.now() - lang < 5000) {
+        return;
     }
+    if (lang === undefined) {
+        UILang[info.id] = Date.now();
+        return env.socket.emit("alert2", { type: "req.lang", data: { langID: info.id, name: info.name } });
+    }
+    DataService.update();
 }

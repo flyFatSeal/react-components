@@ -58,6 +58,8 @@ export const AlertMessage: FC<AlertMessageProps> = ({
             text = alert[field];
             const lang = data.dataLang[alert.variableID];
             text = lang === undefined ? text : (lang[text] || text);
+          } else if (field === "type") {
+            text = data.uiLang[alert.type === "alert" ? "alert" : "recovery"] || text;
           } else {
             text = alert[field].toString();
           }

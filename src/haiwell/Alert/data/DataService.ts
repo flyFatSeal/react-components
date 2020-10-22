@@ -11,15 +11,20 @@ export class DataService implements alert2.client.Service {
     private _alerts: alert2.client.ServerData[] = [];
     private _timeStart?: number;
     private _timeEnd?: number;
+    private _lastRender: number;
+    private _timer: number;
     readonly pageSize: number;
 
     constructor(pageSize: number = 10) {
+        this._timer = window.setTimeout(() => { }, 0);
+        this._lastRender = 0;
         this.pageSize = pageSize;
         this._alerts = ALERT_LIST_MAP.realtime;
         ALL_SERVICE.push(this);
     }
 
     getData(): alert2.client.TableData {
+        this._lastRender = Date.now();
         return {
             tab: this._tab,
             page: this._page,
@@ -123,7 +128,16 @@ export class DataService implements alert2.client.Service {
 
     private update(): void {
         if (this.onUpdate === undefined) return;
-        this.onUpdate(this.getData());
+        if (Date.now() - this._lastRender > 1000) {
+            window.clearTimeout(this._timer);
+            this.onUpdate(this.getData());
+        } else {
+            window.clearTimeout(this._timer);
+            this._timer = window.setTimeout(() => {
+                if (this.onUpdate === undefined) return;
+                this.onUpdate(this.getData());
+            }, 100);
+        }
     }
 
     public static update(tab?: alert2.client.Tabs): void {
