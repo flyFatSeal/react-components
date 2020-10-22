@@ -43,6 +43,7 @@ export const AlertMessage: FC<AlertMessageProps> = ({
           alert.uid >= 0 &&
           alert.confirmTime === ""
         ) {
+          data.beep();
           data.confirm(alert);
         }
       }}

@@ -36,6 +36,7 @@ export class DataService implements alert2.client.Service {
             inputPage: this.inputPage,
             uiLang: getUiLang(),
             dataLang: getDataLang(),
+            beep: this.beep,
         };
     }
 
@@ -100,6 +101,8 @@ export class DataService implements alert2.client.Service {
         let options = undefined;
         if (this._timeStart !== undefined && this._timeEnd !== undefined) {
             options = { s: this._timeStart, e: this._timeEnd };
+        } else {
+            options = { s: Date.now(), e: Date.now() };
         }
         env.inputDate(options, (range) => {
             if (range === undefined) return;
@@ -140,7 +143,7 @@ export class DataService implements alert2.client.Service {
         }
     }
 
-    public static update(tab?: alert2.client.Tabs): void {
+    static update(tab?: alert2.client.Tabs): void {
         if (tab === undefined) {
             for (let s of ALL_SERVICE) {
                 if (s._page === 0) {
@@ -161,7 +164,7 @@ export class DataService implements alert2.client.Service {
         }
     }
 
-    public static onQuery(tab: alert2.client.Tabs, alerts: alert2.client.ServerData[], offset: number, limit: number, startTime?: number, endTime?: number): void {
+    static onQuery(tab: alert2.client.Tabs, alerts: alert2.client.ServerData[], offset: number, limit: number, startTime?: number, endTime?: number): void {
         for (let s of ALL_SERVICE) {
             if (s._tab !== tab) {
                 continue;
@@ -173,6 +176,10 @@ export class DataService implements alert2.client.Service {
                 s.update();
             }
         }
+    }
+
+    private readonly beep = () => {
+        env.beep();
     }
 
 }

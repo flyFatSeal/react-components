@@ -1,20 +1,21 @@
 declare namespace alert2 {
-
     export interface Env {
         socket: ISocket;
-        getLang(): { id: number, name: string };
-        inputNumber(defaultValue?: number, callback: (page: number | undefined) => void): void;
-        inputDate(defaultValue?: { s: number, e: number }, cb: (timerange: { s: number, e: number } | undefined) => void): void;
+        getLang(): { id: number; name: string };
+        inputNumber(defaultValue: number, callback: (page: number | undefined) => void): void;
+        inputDate(defaultValue: { s: number; e: number }, cb: (timerange: { s: number; e: number } | undefined) => void): void;
         getVariableName(variableID: number): string;
         sysLangChange(fn: (this: undefined) => void): void;
+        beep(): void;
     }
 
     export interface ISocket {
         on(type: "alert2", callback: (evt: common.Response) => void): void;
         emit(type: "alert2", evt: common.Request): void;
-    };
+    }
 
     export namespace client {
+
         /** 报警数据 服务端 */
         export interface ServerData {
             /** 报警消息唯一 id */
@@ -58,8 +59,7 @@ declare namespace alert2 {
         /** 所有变量 -> 单个变量的所有多语言 */
         export type DataAllVarLang = Record<number, DataFieldLang | undefined>;
         /** 语言 id -> 单个语言的所有变量 */
-        export type DataAllLang = Record<number, DataAllVarLang | undefined>
-
+        export type DataAllLang = Record<number, DataAllVarLang | undefined>;
 
         /** 报警消息颜色 */
         export interface Theme {
@@ -148,6 +148,9 @@ declare namespace alert2 {
              * @param cb 回调
              */
             inputDate(): void;
+
+            /** beep */
+            beep(): void;
         }
 
         /** 报警数据服务 */
@@ -263,19 +266,19 @@ declare namespace alert2 {
             alert: AlertData;
         }
 
-        type Pair<N, D> = D extends undefined ? { type: N } : { type: N, data: D };
+        type Pair<N, D> = D extends undefined ? { type: N } : { type: N; data: D };
 
         type Request =
-            Pair<"req.lang", LanguageRequest> |
-            Pair<"req.latest", undefined> |
-            Pair<"req.query", QueryRequest> |
-            Pair<"req.confirm", ConfirmRequest>;
+            | Pair<"req.lang", LanguageRequest>
+            | Pair<"req.latest", undefined>
+            | Pair<"req.query", QueryRequest>
+            | Pair<"req.confirm", ConfirmRequest>;
 
         export type Response =
-            Pair<"res.error", ErrorResponse> |
-            Pair<"res.lang", LanguageResponse> |
-            Pair<"res.latest", LatestResponse> |
-            Pair<"res.realtime", RealtimeResponse> |
-            Pair<"res.query", QueryResponse>;
+            | Pair<"res.error", ErrorResponse>
+            | Pair<"res.lang", LanguageResponse>
+            | Pair<"res.latest", LatestResponse>
+            | Pair<"res.realtime", RealtimeResponse>
+            | Pair<"res.query", QueryResponse>;
     }
 }

@@ -12,6 +12,7 @@ export interface AlertNavBarProps extends BaseComponentProps {
 
 const Page: FC<{ data: alert2.client.TableData }> = ({ data }) => {
   return <span className="page" onClick={() => {
+    data.beep();
     data.inputPage();
   }}>{data.page + 1}</span>;
 };
@@ -21,15 +22,22 @@ const History: FC<AlertNavBarProps> = ({ data }) => {
     <div className="icons">
       <span className="icon" style={{ backgroundImage: `url(${calender})` }}
         onClick={() => {
+          data.beep();
           data.inputDate();
         }}
       >
       </span>
-      <span className="icon" onClick={() => { data.setPage(data.page - 1); }} >
+      <span className="icon" onClick={() => {
+        data.beep();
+        data.setPage(data.page - 1);
+      }} >
         <LeftCircleOutlined />
       </span>
       <Page {...{ data }} />
-      <span className="icon" onClick={() => { data.setPage(data.page + 1); }} >
+      <span className="icon" onClick={() => {
+        data.beep();
+        data.setPage(data.page + 1);
+      }} >
         <RightCircleOutlined />
       </span>
     </div>
@@ -38,11 +46,17 @@ const History: FC<AlertNavBarProps> = ({ data }) => {
 const Confirmed: FC<AlertNavBarProps> = ({ data }) => {
   return (
     <div className="icons">
-      <span className="icon" onClick={() => data.setPage(data.page - 1)}>
+      <span className="icon" onClick={() => {
+        data.beep();
+        data.setPage(data.page - 1);
+      }}>
         <LeftCircleOutlined />
       </span>
       <Page {...{ data }} />
-      <span className="icon" onClick={() => data.setPage(data.page + 1)}>
+      <span className="icon" onClick={() => {
+        data.beep();
+        data.setPage(data.page + 1);
+      }}>
         <RightCircleOutlined />
       </span>
     </div>
@@ -51,14 +65,23 @@ const Confirmed: FC<AlertNavBarProps> = ({ data }) => {
 const Unconfirm: FC<AlertNavBarProps> = ({ data }) => {
   return (
     <div className="icons">
-      <span className="icon" onClick={() => data.confirm()}>
+      <span className="icon" onClick={() => {
+        data.beep();
+        data.confirm();
+      }}>
         <CheckSquareOutlined />
       </span>
-      <span className="icon" onClick={() => data.setPage(data.page - 1)}>
+      <span className="icon" onClick={() => {
+        data.beep();
+        data.setPage(data.page - 1);
+      }}>
         <LeftCircleOutlined />
       </span>
       <Page {...{ data }} />
-      <span className="icon" onClick={() => data.setPage(data.page + 1)}>
+      <span className="icon" onClick={() => {
+        data.beep();
+        data.setPage(data.page + 1);
+      }}>
         <RightCircleOutlined />
       </span>
     </div>
@@ -89,8 +112,10 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
                 border,
                 borderBottom: "none",
               }}
-              onClick={() => data.setTab(tab)}
-            >
+              onClick={() => {
+                data.beep();
+                data.setTab(tab)
+              }} >
               {data.uiLang[tab]}
             </span>
           );

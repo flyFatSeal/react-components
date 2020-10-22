@@ -20,9 +20,9 @@ export const AlertTable: FC<AlertTableProps> = ({
   }
   let idx = data.page * pageSize;
   const alerts: (alert2.client.DataWithIndex | undefined)[] = [];
-  const start = Math.max(0, data.alerts.length - pageSize);
-  for (var i = start; i < start + pageSize; i++) {
-    const alert = data.alerts[i] as undefined | Partial<alert2.client.DataWithIndex>;
+  const maxIdx = data.alerts.length - 1;
+  for (var i = 0; i < pageSize; i++) {
+    const alert = data.alerts[maxIdx - i] as undefined | Partial<alert2.client.DataWithIndex>;
     if (alert !== undefined) {
       alert.index = ++idx;
     }

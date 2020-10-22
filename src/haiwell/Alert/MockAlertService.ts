@@ -82,6 +82,7 @@ export class MockAlertDataBuilder implements alert2.client.Service {
             inputDate: this.inputDate,
             uiLang: Object.create(null),
             dataLang: Object.create(null),
+            beep: this.beep,
         };
 
     };
@@ -156,6 +157,10 @@ export class MockAlertDataBuilder implements alert2.client.Service {
     inputPage = (): void => { }
 
     inputDate = (): void => { }
+
+    private readonly beep = () => {
+        console.log("bee");
+    }
 }
 
 

@@ -20,6 +20,10 @@ const sysLangChange = () => {
     console.log("request lang");
 };
 
+const beep = () => {
+    console.log("bee");
+}
+
 export const defaultUiLang: alert2.client.UiLang = {
     index: "序号",
     alertTime: "报警时间",
@@ -44,6 +48,7 @@ export const env: alert2.Env = {
     inputDate,
     getVariableName,
     sysLangChange,
+    beep,
 };
 
 let inited = false;
