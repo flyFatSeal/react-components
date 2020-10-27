@@ -41,6 +41,11 @@ export function buildRealTimeList(): alert2.client.ServerData[] {
             list.push(REALTIME[k]);
         }
     }
+    list.sort((a, b) => {
+        var ta = new Date(a.alertTime).getTime();
+        var tb = new Date(b.alertTime).getTime();
+        return ta - tb;
+    });
     return list;
 }
 
