@@ -49,6 +49,7 @@ export const env: alert2.Env = {
     getVariableName,
     sysLangChange,
     beep,
+    ophis: null,
 };
 
 let inited = false;
@@ -63,6 +64,8 @@ export function setup(e: alert2.Env): void {
     env.inputDate = e.inputDate;
     env.sysLangChange = e.sysLangChange;
     env.getVariableName = e.getVariableName;
+    env.beep = e.beep;
+    env.ophis = e.ophis;
 
 
     const lang = env.getLang();

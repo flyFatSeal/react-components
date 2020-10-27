@@ -1,4 +1,7 @@
+/// <reference path="./ophis.d.ts" />
+
 declare namespace alert2 {
+
     export interface Env {
         socket: ISocket;
         getLang(): { id: number; name: string };
@@ -7,6 +10,7 @@ declare namespace alert2 {
         getVariableName(variableID: number): string;
         sysLangChange(fn: (this: undefined) => void): void;
         beep(): void;
+        ophis: ophis.InfoOptionTime | null;
     }
 
     export interface ISocket {
@@ -89,6 +93,8 @@ declare namespace alert2 {
             msgRecovery: string;
             /** 未确认报警的颜色 */
             msgConfirmed: string;
+            /** 历史、未确认、已确认报警的颜色 */
+            msgNormal: string;
             /** 边框样式 */
             border: string;
             /** 行宽 */
@@ -258,6 +264,8 @@ declare namespace alert2 {
             uid: "all" | number;
             /** 如果些字段有值则去相应的表进行查询 */
             dbpath?: string;
+            /** 操作记录信息 */
+            ophis: null | ophis.InfoOptionTime;
         }
 
         /** 实时报警的响应 */

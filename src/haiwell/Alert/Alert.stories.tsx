@@ -48,6 +48,7 @@ const theme: alert2.client.Theme = {
   msgAlert: "red",
   msgRecovery: "green",
   msgConfirmed: "cyan",
+  msgNormal: "black",
   border: "1px solid #000",
   lineWidth: lineWidth + "em",
 };

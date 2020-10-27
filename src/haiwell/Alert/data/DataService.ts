@@ -42,9 +42,9 @@ export class DataService implements alert2.client.Service {
 
     readonly confirm = (alert?: alert2.client.DataWithIndex) => {
         if (alert !== undefined) {
-            env.socket.emit("alert2", { type: "req.confirm", data: { uid: alert.uid, dbpath: alert.dbpath } });
+            env.socket.emit("alert2", { type: "req.confirm", data: { uid: alert.uid, dbpath: alert.dbpath, ophis: env.ophis } });
         } else {
-            env.socket.emit("alert2", { type: "req.confirm", data: { uid: "all" } });
+            env.socket.emit("alert2", { type: "req.confirm", data: { uid: "all", ophis: env.ophis } });
         }
     };
 

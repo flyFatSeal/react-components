@@ -17,14 +17,15 @@ export const AlertMessage: FC<AlertMessageProps> = ({
   conf,
   alert,
 }) => {
-  const color =
-    alert === undefined
-      ? conf.theme.msgRecovery
-      : alert.type === "recovery"
-        ? conf.theme.msgRecovery //  已恢复
-        : alert.confirmTime !== ""
-          ? conf.theme.msgConfirmed // 已确认
-          : conf.theme.msgAlert; //    报警中
+  let color = conf.theme.msgNormal;
+  if (data.tab === "realtime" && alert !== undefined) {
+    color = alert.type === "recovery"
+      ? conf.theme.msgRecovery     // 已恢复
+      : alert.confirmTime === ""
+        ? conf.theme.msgAlert      // 报警中
+        : conf.theme.msgConfirmed; // 已确认
+  }
+
   return (
     <div
       title={alert === undefined ? "undefined" : typeof alert.uid === "number" ? alert.uid.toString() : ""}
