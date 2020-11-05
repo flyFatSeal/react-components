@@ -25,8 +25,7 @@ const History: FC<AlertNavBarProps> = ({ data }) => {
           data.beep();
           data.inputDate();
         }}
-      >
-      </span>
+      />
       <span className="icon" onClick={() => {
         data.beep();
         data.setPage(data.page - 1);
@@ -46,6 +45,12 @@ const History: FC<AlertNavBarProps> = ({ data }) => {
 const Confirmed: FC<AlertNavBarProps> = ({ data }) => {
   return (
     <div className="icons">
+      <span className="icon" style={{ backgroundImage: `url(${calender})` }}
+        onClick={() => {
+          data.beep();
+          data.inputDate();
+        }}
+      />
       <span className="icon" onClick={() => {
         data.beep();
         data.setPage(data.page - 1);
@@ -65,6 +70,12 @@ const Confirmed: FC<AlertNavBarProps> = ({ data }) => {
 const Unconfirm: FC<AlertNavBarProps> = ({ data }) => {
   return (
     <div className="icons">
+      <span className="icon" style={{ backgroundImage: `url(${calender})` }}
+        onClick={() => {
+          data.beep();
+          data.inputDate();
+        }}
+      />
       <span className="icon" onClick={() => {
         data.beep();
         data.confirm();
@@ -96,21 +107,17 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
   const fontSize = conf.theme.titleFontSize;
   const color = conf.theme.titleColor;
   const borderColor = conf.theme.titleBoderColor;
-  const border = `1px solid ${borderColor}`;
   return (
     <div className="nav" style={{ fontSize }}>
       <div className="tabs">
         {conf.tabs.map((tab, idx) => {
           const backgroundColor = data.tab === tab ? conf.theme.navFocusBg : "";
           return (
-            <span
-              key={idx}
-              className="tab"
+            <span key={idx} className="tab"
               style={{
                 backgroundColor,
                 color,
-                border,
-                borderBottom: "none",
+                borderColor,
               }}
               onClick={() => {
                 data.beep();

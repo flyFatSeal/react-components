@@ -12,7 +12,12 @@ export const ALERT_LIST_MAP: Record<alert2.client.Tabs, alert2.client.ServerData
     confirmed: [],
 };
 
-function convertServerData(i: alert2.common.AlertData): alert2.client.ServerData {
+function convertServerData(i: alert2.common.AlertData): alert2.client.ServerData | undefined {
+    const uid = parseInt(i.uid as any);
+    if (isNaN(uid)) {
+        console.log("invalid alert data:", i);
+        return undefined;
+    }
     return {
         uid: i.uid,
         value: i.value,
@@ -29,7 +34,10 @@ function convertServerData(i: alert2.common.AlertData): alert2.client.ServerData
 export function convertServerDataList(list: alert2.common.AlertData[]): alert2.client.ServerData[] {
     const arr = [];
     for (let i = 0, l = list.length; i < l; i++) {
-        arr.push(convertServerData(list[i]));
+        const a = convertServerData(list[i]);
+        if (a !== undefined) {
+            arr.push(a);
+        }
     }
     return arr;
 }
@@ -51,6 +59,9 @@ export function buildRealTimeList(): alert2.client.ServerData[] {
 
 function onRealTime(data: alert2.common.RealtimeResponse) {
     const alert = convertServerData(data.alert);
+    if (alert === undefined) {
+        return;
+    }
     ALERT_LIST_MAP.history.push(alert);
     if (alert.type === "alert") {
         REALTIME[alert.variableID] = alert;
@@ -90,7 +101,10 @@ function onLatest(data: alert2.common.LatestResponse) {
     for (let k in data.realtime) {
         if (Object.prototype.hasOwnProperty.call(data.realtime, k)) {
             const a = data.realtime[k];
-            REALTIME[a.variableID] = convertServerData(a);
+            const v = convertServerData(a);
+            if (v !== undefined) {
+                REALTIME[a.variableID] = v;
+            }
         }
     }
     ALERT_LIST_MAP.realtime = buildRealTimeList();
@@ -103,7 +117,10 @@ function onLatest(data: alert2.common.LatestResponse) {
 function onQuery(data: alert2.common.QueryResponse) {
     const alerts: alert2.client.ServerData[] = [];
     for (let a of data.alerts) {
-        alerts.push(convertServerData(a));
+        const alert = convertServerData(a);
+        if (alert !== undefined) {
+            alerts.push(alert);
+        }
     }
     if (data.timeStart === undefined && data.timeEnd === undefined && data.offset === 0 && data.limit === MAX_PAGE_SIZE) {
         ALERT_LIST_MAP[data.tab] = alerts;

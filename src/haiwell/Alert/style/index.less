@@ -19,11 +19,15 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+        flex-shrink: 0;
         line-height: @tab-lineHeight;
         background-color: #FFF;
 
         .tabs, .icons{
             display: inline-flex;
+            white-space: nowrap;
+            height: @tab-lineHeight  + @tab-paddingTop * 2;
+            overflow: hidden;
         }
 
         .tab{
@@ -32,6 +36,8 @@
             height: @tab-lineHeight  + @tab-paddingTop * 2;
             padding: @tab-paddingTop @tab-paddingLeft;
             cursor: pointer;
+            border-style: solid;
+            border-width: 1px 1px 0 1px;
         }
 
         .icon{
@@ -48,16 +54,11 @@
         .icon>span{
             font-size: @tab-lineHeight;
         }
-
         .icon:hover{
             opacity: 0.9;
         }
-
-        .icon:active{
-            background-size: @tab-lineHeight * 0.9;
-        }
         .icon:active>span{
-            transform: scale(0.9);
+            opacity: 0.6;
         }
 
         .page{
@@ -70,15 +71,9 @@
         }
     }
 
-    .nav div{
-        white-space: nowrap;
-        height: @tab-lineHeight  + @tab-paddingTop * 2;
-    }
-
-
     // 表格样式
     .table{ 
-        height: calc(100% - 2.2em);
+        flex-grow: 1;
         overflow: auto;
         background-color: #FFF;
         display: flex;

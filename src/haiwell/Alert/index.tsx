@@ -23,11 +23,13 @@ export const HaiwellAlert: FC<HaiwellAlertProps> = ({
 }) => {
     const [data, setData] = useState<alert2.client.TableData>(service.getData());
     service.onUpdate = setData;
+    const realtimeOnly = conf.tabs.length === 1 && conf.tabs[0] === "realtime";
     return (
         <Alert
             {...{
                 conf,
                 data,
+                realtimeOnly,
             }}
         ></Alert>
     );

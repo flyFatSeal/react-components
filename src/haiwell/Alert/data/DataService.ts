@@ -14,12 +14,17 @@ export class DataService implements alert2.client.Service {
     private _lastRender: number;
     private _timer: number;
     readonly pageSize: number;
+    /** 
+     * 翻页锁，防止疯狂翻页，当此锁时间大于当前时间时无法翻页
+     */
+    private _pageLock: number;
 
     constructor(pageSize: number = 10) {
         this._timer = window.setTimeout(() => { }, 0);
         this._lastRender = 0;
         this.pageSize = pageSize;
         this._alerts = ALERT_LIST_MAP.realtime;
+        this._pageLock = 0;
         ALL_SERVICE.push(this);
     }
 
@@ -59,12 +64,15 @@ export class DataService implements alert2.client.Service {
         if (page < 0) {
             return;
         }
-
+        if (this._pageLock > Date.now()) {
+            return;
+        }
         this._page = page;
-        if (this._page === 0) {
+        if (this._timeStart === undefined && this._page === 0) {
             this._alerts = ALERT_LIST_MAP[this._tab]
             this.update();
         } else {
+            this._pageLock = Date.now() + 1000;
             this.query();
         }
     };
@@ -79,8 +87,14 @@ export class DataService implements alert2.client.Service {
         }
         this._page = 0;
         this._tab = tab;
-        this._alerts = ALERT_LIST_MAP[tab]
-        this.update();
+        this._timeStart = undefined;
+        this._timeEnd = undefined;
+        if (this._tab === "realtime" || this._timeStart === undefined) {
+            this._alerts = ALERT_LIST_MAP[tab]
+            this.update();
+        } else {
+            this.query();
+        }
     }
 
     /**
@@ -89,6 +103,8 @@ export class DataService implements alert2.client.Service {
      */
     readonly inputPage = () => {
         env.inputNumber(this._page, (page?: number) => {
+            if (page === undefined) return;
+            this.setPage(page);
         });
     };
 
@@ -131,7 +147,7 @@ export class DataService implements alert2.client.Service {
 
     private update(): void {
         if (this.onUpdate === undefined) return;
-        if (Date.now() - this._lastRender > 1000) {
+        if (Date.now() - this._lastRender > 3000) {
             window.clearTimeout(this._timer);
             this.onUpdate(this.getData());
         } else {
@@ -143,17 +159,21 @@ export class DataService implements alert2.client.Service {
         }
     }
 
+    /**
+     * 更新数据，区别于 onQuery 此方法只更新当前页码为 0 的选项卡
+     * @param tab 需要更新的选项卡，如果不传则更新所有选项卡
+     */
     static update(tab?: alert2.client.Tabs): void {
         if (tab === undefined) {
             for (let s of ALL_SERVICE) {
-                if (s._page === 0) {
+                if ((s._timeStart === undefined && s._page === 0) || s._tab === "realtime") {
                     s._alerts = ALERT_LIST_MAP[s._tab];
                     s.update();
                 }
             }
         } else {
             for (let s of ALL_SERVICE) {
-                if (s._tab !== tab) {
+                if ((s._timeStart !== undefined || s._tab !== tab) && s._tab !== "realtime") {
                     continue;
                 }
                 if (s._page === 0) {
@@ -164,6 +184,15 @@ export class DataService implements alert2.client.Service {
         }
     }
 
+    /**
+     * 更新查询结果， 区别于 update 此方法用于更新不在第 0 页的选项卡
+     * @param tab       需要更新的选项卡
+     * @param alerts    报警数据
+     * @param offset    数据偏移
+     * @param limit     数据长度
+     * @param startTime 查询的起始时间
+     * @param endTime   查询的结束时间
+     */
     static onQuery(tab: alert2.client.Tabs, alerts: alert2.client.ServerData[], offset: number, limit: number, startTime?: number, endTime?: number): void {
         for (let s of ALL_SERVICE) {
             if (s._tab !== tab) {
@@ -173,6 +202,7 @@ export class DataService implements alert2.client.Service {
             const sl = s.pageSize;
             if (so === offset && sl === limit && s._timeStart === startTime && s._timeEnd === endTime) {
                 s._alerts = alerts;
+                s._pageLock = 0;
                 s.update();
             }
         }
@@ -181,5 +211,4 @@ export class DataService implements alert2.client.Service {
     private readonly beep = () => {
         env.beep();
     }
-
 }

@@ -6,15 +6,14 @@ export interface AlertProps extends AlertNavBarProps, AlertTableProps { }
 
 export const Alert: FC<AlertProps> = ({
   prefixCls = "haiwell",
+  realtimeOnly,
   conf,
   ...common
 }) => {
-  const realtimeOnly = conf.tabs.length === 1 && conf.tabs[0] === "realtime";
-
   return (
     <div className={`${prefixCls}-alert`} style={{ backgroundColor: conf.theme.paddingColor, padding: conf.theme.padding }}>
       {!realtimeOnly && <AlertNavBar {...{ prefixCls, conf, ...common }} />}
-      <AlertTable {...{ prefixCls, conf, ...common }}></AlertTable>
+      <AlertTable {...{ prefixCls, conf, realtimeOnly, ...common }}></AlertTable>
     </div>
   );
 };

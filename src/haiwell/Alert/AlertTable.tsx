@@ -5,7 +5,11 @@ import { AlertTitle } from "./AlertTitle";
 export interface AlertTableProps extends BaseComponentProps {
   data: alert2.client.TableData;
   conf: alert2.client.Configuration;
+  /** 是否只有实时模式 */
+  realtimeOnly: boolean;
 }
+
+let reactKey = 0;
 
 /**
  * 报警内容的表格
@@ -13,6 +17,7 @@ export interface AlertTableProps extends BaseComponentProps {
 export const AlertTable: FC<AlertTableProps> = ({
   data,
   conf,
+  realtimeOnly,
 }) => {
   let pageSize = conf.pageSize || 10;
   if (data.tab === "realtime") {
@@ -28,30 +33,38 @@ export const AlertTable: FC<AlertTableProps> = ({
     }
     alerts[i] = alert as alert2.client.DataWithIndex | undefined;
   }
+  const style: React.CSSProperties = {
+    border: conf.theme.border,
+    fontSize: conf.theme.navFontSize,
+  };
+  if (!conf.theme.wordWrap) {
+    style.whiteSpace = "nowrap";
+    style.wordBreak = "break-all";
+  }
+
+  if (realtimeOnly) {
+    style.height = "100%";
+  }
+
   return (
     <div
       className="table"
-      style={
-        conf.theme.wordWrap ? {
-          border: conf.theme.border,
-          fontSize: conf.theme.navFontSize,
-        } :
-          {
-            wordBreak: "break-all",
-            whiteSpace: "nowrap",
-            border: conf.theme.border,
-            fontSize: conf.theme.navFontSize,
-          }
-      }
+      style={style}
     >
       <AlertTitle {...{ conf, data }}></AlertTitle>
       {alerts.map((alert, idx) => {
-        let key = idx;
-        if (alert !== undefined) {
-          key = alert.uid;
-          if (alert.recoveryTime !== "") {
-            key *= -1;
-          }
+        let key: string | number = idx;
+        if (alert === undefined) {
+          reactKey++;
+          key = "un" + reactKey;
+          return (<AlertMessage {...{ key, data, conf, alert }}></AlertMessage>);
+        }
+        if (isNaN(alert.uid)) {
+          return;
+        }
+        key = alert.uid;
+        if (alert.recoveryTime !== "") {
+          key *= -1;
         }
         return (<AlertMessage {...{ key, data, conf, alert }}></AlertMessage>);
       })}
