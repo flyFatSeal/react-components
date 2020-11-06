@@ -11,6 +11,7 @@ declare namespace alert2 {
         sysLangChange(fn: (this: undefined) => void): void;
         beep(): void;
         ophis: ophis.InfoOptionTime | null;
+        toast(msg: string): void;
     }
 
     export interface ISocket {

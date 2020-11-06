@@ -54,18 +54,11 @@ export const AlertTable: FC<AlertTableProps> = ({
       <AlertTitle {...{ conf, data }}></AlertTitle>
       {alerts.map((alert, idx) => {
         let key: string | number = idx;
-        if (alert === undefined) {
-          reactKey++;
-          key = "un" + reactKey;
-          return (<AlertMessage {...{ key, data, conf, alert }}></AlertMessage>);
+        if (alert === undefined || isNaN(alert.uid)) {
+          key = "un" + idx;
+          return (<AlertMessage {...{ key, data, conf }}></AlertMessage>);
         }
-        if (isNaN(alert.uid)) {
-          return;
-        }
-        key = alert.uid;
-        if (alert.recoveryTime !== "") {
-          key *= -1;
-        }
+        key = idx;
         return (<AlertMessage {...{ key, data, conf, alert }}></AlertMessage>);
       })}
     </div>

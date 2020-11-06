@@ -24,6 +24,10 @@ const beep = () => {
     console.log("bee");
 }
 
+const toast = (msg: string) => {
+    console.log("toast:", msg);
+}
+
 export const defaultUiLang: alert2.client.UiLang = {
     index: "序号",
     alertTime: "报警时间",
@@ -50,6 +54,7 @@ export const env: alert2.Env = {
     sysLangChange,
     beep,
     ophis: null,
+    toast,
 };
 
 let inited = false;
@@ -66,6 +71,7 @@ export function setup(e: alert2.Env): void {
     env.getVariableName = e.getVariableName;
     env.beep = e.beep;
     env.ophis = e.ophis;
+    env.toast = e.toast;
 
 
     const lang = env.getLang();

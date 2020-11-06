@@ -132,7 +132,11 @@ function onQuery(data: alert2.common.QueryResponse) {
 
 export function handleSocket(evt: alert2.common.Response) {
     switch (evt.type) {
-        case "res.error": return console.error("alert2 error, message: %s, stack: %s", evt.data.message, evt.data.stack);
+        case "res.error":
+            if (evt.data.tips !== undefined) {
+                env.toast(evt.data.tips);
+            }
+            return console.error("alert2 error, message: %s, stack: %s", evt.data.message, evt.data.stack);
         case "res.realtime": return onRealTime(evt.data);
         case "res.lang": return onLang(evt.data);
         case "res.latest": return onLatest(evt.data);
