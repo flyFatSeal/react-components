@@ -9,7 +9,7 @@ import React, {
 } from 'react'
 
 import {HotTable} from '@handsontable/react'
-import 'handsontable/dist/handsontable.full.css'
+
 import {useLocalContext} from '../until/locale'
 import {useEffect} from 'react'
 import {Emitter} from '../until/emitter'
@@ -53,56 +53,50 @@ const Table: FC<HaiwellTableProps> = (props) => {
     transformData(data, colLength)
   )
 
+  // 是否统一表格行高（当查询到大量数据时）
+  const [shouldResizRowHeight, setShouldResizeRowHeight] = useState(false)
   // 使用ref储存一个当前tabledata的副本值 因为HotTable自身能够修改单元格的值 此时如果要执行导出xlxs操作需要同步被修改的值到现有值中并传递给后端
   // 但是如果同步到useState中会又重新渲染一遍表格 导致性能损失 因此使用一个ref用来同步 被修改后的报表值
   const storeTableData = useRef(tableData)
   const hotInstanceRef = useRef<Handsontable>()
+  const toolbarRef = useRef<HTMLDivElement>(null)
   // 获取默认样式名 和size 全局context
   const {getPrefixCls} = useContext(ConfigContext)
 
   addGlobalCss(css)
   /** 拿到实例化后的报表实例，并进行一些样式添加操作*/
-  const hotRef = useCallback(
-    (node) => {
-      if (node !== null) {
-        const hotInstance = node.hotInstance as Handsontable
-        /** 获取表格实例*/
-        hotInstanceRef.current = hotInstance
-
-        initCellsClassAndMergeCell(hotInstance, tableData)
-        hotInstance.addHook('afterCreateRow', (index: number) => {
-          storeTableData.current.splice(
-            index,
-            0,
-            addRow(storeTableData.current)
-          )
-        })
-        hotInstance.addHook(
-          'afterChange',
-          (changes: Array<readonly [number, number, string, string]>) => {
-            // 表格单元格变化时同步到本地缓存中
-            for (let changedCell of changes) {
-              let storeCell =
-                storeTableData.current[changedCell[0]][changedCell[1]]
-              if (
-                changedCell[3].includes('<div style="width:100%;height:100%">')
-              ) {
-                // 图片变化 -- 只有一种可能图片被清空 或者改成字符串
-                let imageFile = changedCell[3].match(
-                  /(?<=images\/).*?(?=')/g
-                )![0]
-                storeCell.value = {image: imageFile}
-              } else storeCell.value = changedCell[3]
-            }
+  const hotRef = useCallback((node) => {
+    if (node !== null) {
+      const hotInstance = node.hotInstance as Handsontable
+      /** 获取表格实例*/
+      hotInstanceRef.current = hotInstance
+      hotInstance.addHook('afterCreateRow', (index: number) => {
+        storeTableData.current.splice(index, 0, addRow(storeTableData.current))
+      })
+      hotInstance.addHook(
+        'afterChange',
+        (changes: Array<readonly [number, number, string, string]>) => {
+          // 表格单元格变化时同步到本地缓存中
+          if (!changes || changes.length > 1) return
+          for (let changedCell of changes) {
+            let storeCell =
+              storeTableData.current[changedCell[0]][changedCell[1]]
+            if (
+              changedCell[3] &&
+              changedCell[3].includes('<div style="width:100%;height:100%">')
+            ) {
+              // 图片变化 -- 只有一种可能图片被清空 或者改成字符串
+              let imageFile = changedCell[3].match(/(?<=images\/).*?(?=')/g)![0]
+              storeCell.value = {image: imageFile}
+            } else storeCell.value = changedCell[3]
           }
-        )
-        hotInstance.addHook('afterRemoveRow', (index: number) => {
-          storeTableData.current.splice(index, 1)
-        })
-      }
-    },
-    [tableData]
-  )
+        }
+      )
+      hotInstance.addHook('afterRemoveRow', (index: number) => {
+        storeTableData.current.splice(index, 1)
+      })
+    }
+  }, [])
   /** 添加行操作同步到本地缓存中*/
   const addRow = (table: CellProps[][]) => {
     let len = table[0].length
@@ -122,10 +116,17 @@ const Table: FC<HaiwellTableProps> = (props) => {
   const Locale = useLocalContext('Table')
 
   const hotSetting = useMemo<Handsontable.DefaultSettings>(
-    () => getHotSetting(Locale, rootDiv, colWidthConfig, trConfig),
-    [Locale, colWidthConfig, rootDiv, trConfig]
+    () =>
+      getHotSetting(
+        Locale,
+        rootDiv,
+        colWidthConfig,
+        trConfig,
+        tableData,
+        shouldResizRowHeight
+      ),
+    [Locale, rootDiv, colWidthConfig, trConfig, tableData, shouldResizRowHeight]
   )
-
   // table 前缀
   const prefixCls = getPrefixCls('table')
 
@@ -136,44 +137,103 @@ const Table: FC<HaiwellTableProps> = (props) => {
         data: storeTableData.current,
         css,
         type,
+        name: props.rootDiv.id,
       })
     }
   }
-  /** 打印*/
+  /** 打印 这个函数完全是为了兼容以前的功能设定，最好后续去掉*/
   const printFn = () => {
-    // hotInstanceRef.current?.updateSettings(
-    //   {
-    //     width: document.body.offsetWidth,
-    //     height: document.body.offsetHeight,
-    //   },
-    //   false
-    // )
-    window.print()
+    // 将报表拉伸到全局
+    // 添加打印时的样式
+    rootDiv.classList.add('report_print_center')
+    // 隐藏工具栏
+    toolbarRef.current!.style.display = 'none'
+    const [beforeWidth, beforeHeight, beforeTop] = [
+      rootDiv.style.width,
+      rootDiv.style.height,
+      rootDiv.style.top,
+    ]
+    // 为了能打印出多页的情况，必须要将body和外部容器的高度和表格的总高度一致。
+    const resetHeight =
+      hotSetting.height! > (tableData.length + 7) * 30
+        ? (hotSetting.height as number) + 100
+        : (tableData.length + 7) * 30
+    rootDiv.style.width = '100%'
+    rootDiv.style.height = `${resetHeight}px`
+    rootDiv.style.top = '0'
+    document.body.style.minHeight = `${resetHeight}px`
+
+    let scaleCount = 770 / (hotSetting.width as number)
+
+    hotInstanceRef.current?.updateSettings(
+      {
+        width: 770,
+        height: resetHeight,
+        colWidths: (hotSetting.colWidths as number[]).map(
+          (colWidth) => colWidth * scaleCount
+        ),
+      },
+      false
+    )
+
+    hotInstanceRef.current?.render()
+
+    // 兼容eletron 6.0.2 window.print 不能运行的bug https://github.com/electron/electron/issues/14705
+    if (window.navigator.appVersion.includes('Electron')) {
+      // eslint-disable-next-line no-eval
+      const electronre = eval('require')('electron')
+      var ipc = electronre.ipcRenderer
+      ipc.send('print')
+    } else {
+      window.print()
+    }
+    rootDiv.style.height = beforeHeight
+    rootDiv.style.width = beforeWidth
+    rootDiv.style.top = beforeTop
+    hotInstanceRef.current?.updateSettings(hotSetting, false)
+    rootDiv.classList.remove('report_print_center')
+    toolbarRef.current!.style.display = 'flex'
+    document.body.style.minHeight = '100px'
+  }
+  /** 查询数据*/
+  const queryData = (Query: {[key: string]: string}) => {
+    const payload = {
+      symId: props.rootDiv.id,
+      type: 'getReactReport',
+      opinfo: null,
+      data: {
+        Query,
+        myReport: props.rootDiv.getAttribute('myReport-id'),
+      },
+    }
+    scoket.emit('qianduan', payload)
   }
 
   /** 监听报表数据更换*/
   useEffect(() => {
-    scoket.on('qianduan', (options: socketOptionsProps) => {
-      if (options.type !== 'returnReport' || options.symId !== rootDiv.id)
-        return
+    scoket.on('returnReport', (options: socketOptionsProps) => {
+      if (options.symId !== rootDiv.id) return
       const {data, colLength} = options.data
+      if (data.length > tableData.length) {
+        setShouldResizeRowHeight(true)
+      }
       setTableData(transformData(data, colLength))
     })
-  }, [rootDiv.id, scoket])
+  }, [rootDiv.id, scoket, tableData.length])
 
   return (
     <Fragment>
       <Toolbar
+        ref={toolbarRef}
         prefixCls={prefixCls}
         exportXlxsFn={exportEmit('xlxs')}
         exportCsvFn={exportEmit('csv')}
         printFn={printFn}
+        queryDataFn={queryData}
+        queryCondition={props.options.Querys}
       />
-      <HotTable
-        ref={hotRef}
-        data={tableData.map((row) => row.map((col) => col.value))}
-        settings={hotSetting}
-      />
+
+      <HotTable ref={hotRef} settings={hotSetting} />
     </Fragment>
   )
 }
@@ -229,7 +289,9 @@ const getHotSetting = (
   Locale: {[key: string]: string},
   root: HTMLDivElement,
   colsWidth: TableProps['colWidthConfig'],
-  rowsHeight: TableProps['trConfig']
+  rowsHeight: TableProps['trConfig'],
+  tableData: CellProps[][],
+  shouldResizRowHeight: boolean
 ) => {
   /** 因为handstontable v6不支持自适应父容器 因此需要手动获取父容器的高宽度 并且根据组态上的设置 拉伸各列的宽度进行比例适配*/
   const width = root.offsetWidth
@@ -247,7 +309,9 @@ const getHotSetting = (
   const widthScale = (width - 50 - 40) / sumWidth
   const heightScale = height / sumHeight
   // 计算出各行各列对应的实际高宽度
-  const rowHeight = rowsHeight.map((item) => Number(item.height) * heightScale)
+  const rowHeights = !shouldResizRowHeight
+    ? rowsHeight.map((item) => Number(item.height) * heightScale)
+    : []
   const colWidths = colsWidth
     .slice(1)
     .map((item) => Number(item.width) * widthScale)
@@ -265,11 +329,27 @@ const getHotSetting = (
     manualColumnResize: true,
     columnSorting: true,
     search: true,
-    rowHeight,
+    rowHeights,
     colWidths,
     width,
     height,
     columns,
+    mergeCells: getMergeCells(tableData),
+    data: tableData.map((row) =>
+      row.map((col) => {
+        let value = col.value
+        typeof value === 'object' &&
+          value &&
+          value.image &&
+          (value = `<div style="width:100%;height:100%"><img height="100%" width="100%" src='../images/${value.image}'></div>`)
+        return value
+      })
+    ),
+    cells: function (row: number | undefined, col: number | undefined) {
+      return {
+        className: `${tableData[row!][col!].class} controlTd`,
+      }
+    },
     contextMenu: {
       callback: () => {},
       items: {
@@ -363,12 +443,7 @@ const getHotSetting = (
             key: string,
             options: Handsontable.contextMenu.Options[]
           ) {
-            let [startRow, startCol, endRow, endCol] = [
-              options[0].start.row,
-              options[0].start.col,
-              options[0].end.row,
-              options[0].end.col,
-            ]
+            let [startRow] = [options[0].start.row]
             this.updateSettings(
               {
                 fixedRowsTop: startRow + 1,
@@ -425,62 +500,26 @@ const alignment = (position: string) => {
     this.render()
   }
 }
-/** 初始化各单元格的classname以及单元格之间的合并和图片处理*/
-const initCellsClassAndMergeCell = (
-  hot: Handsontable,
-  tableData: CellProps[][]
-) => {
-  hot.addHookOnce('afterRender', function () {
-    let data = tableData
-    let mergeCells: any = []
-    let [dataCol, dataRow] = [data[0].length, data.length]
-    for (let row = 0; row < dataRow; row++) {
-      for (let col = 0; col < dataCol; col++) {
-        hot.setCellMeta(
+/** 初始化各单元格之间的合并*/
+const getMergeCells = (tableData: CellProps[][]) => {
+  let data = tableData
+  let mergeCells: any = []
+  let [dataCol, dataRow] = [data[0].length, data.length]
+  for (let row = 0; row < dataRow; row++) {
+    for (let col = 0; col < dataCol; col++) {
+      if (
+        Number(data[row][col].rowSpan) > 1 ||
+        Number(data[row][col].colSpan > 1)
+      )
+        mergeCells.push({
           row,
           col,
-          'className',
-          `${data[row][col].class} controlTd`
-        )
-        if (
-          Number(data[row][col].rowSpan) > 1 ||
-          Number(data[row][col].colSpan > 1)
-        )
-          mergeCells.push({
-            row,
-            col,
-            rowspan: Number(data[row][col].rowSpan),
-            colspan: Number(data[row][col].colSpan),
-          })
-
-        const cellValue = data[row][col].value
-
-        if (
-          cellValue &&
-          typeof cellValue === 'object' &&
-          cellValue.hasOwnProperty('image')
-        ) {
-          setTimeout(() => {
-            hot.setDataAtCell(
-              row,
-              col,
-              `<div style="width:100%;height:100%"><img height="100%" width="100%" src='../images/${cellValue.image}'></div>`
-            )
-          })
-        }
-      }
+          rowspan: Number(data[row][col].rowSpan),
+          colspan: Number(data[row][col].colSpan),
+        })
     }
-
-    setTimeout(() => {
-      hot.updateSettings(
-        {
-          mergeCells,
-        },
-        false
-      )
-      hot.render()
-    })
-  })
+  }
+  return mergeCells
 }
 /** 将组态配置好的样式添加到全局*/
 const addGlobalCss = (cssRule: string) => {

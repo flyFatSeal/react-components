@@ -4,6 +4,11 @@ interface Window {
   sysLang: {
     [key: string]: string
   }
+  /** 蜂鸣器*/
+  Common: {
+    Bee: () => void
+  }
+  socket: any
 }
 
 interface HaiElement extends HTMLElement {

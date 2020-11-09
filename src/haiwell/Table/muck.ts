@@ -458,7 +458,7 @@ export const muckQuery = {
           width: 84,
           colSpan: 6,
           rowSpan: 1,
-          value: '数据组记录报表',
+          value: 'muck changedddd',
         },
       ],
       [
@@ -715,6 +715,456 @@ export const muckQuery = {
         {
           class:
             's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 153,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+      ],
+      [
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 84,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '平均值:',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 222,
+          colSpan: 1,
+          rowSpan: 1,
+          value: 16,
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 141,
+          colSpan: 1,
+          rowSpan: 1,
+          value: 5,
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 137,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 139,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 153,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+      ],
+      [
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 84,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 222,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 141,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 137,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 139,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f0a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 153,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+      ],
+      [
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 84,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 222,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 141,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 137,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 139,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f0a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 153,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+      ],
+      [
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 84,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 222,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 141,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 137,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 139,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f0a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 153,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+      ],
+      [
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 84,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 222,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 141,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 137,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 139,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f0a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 153,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+      ],
+      [
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 84,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 222,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 141,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 137,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 139,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f0a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 153,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+      ],
+      [
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 84,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 222,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 141,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 137,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 139,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f0a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 153,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+      ],
+      [
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 84,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 222,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 141,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 137,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 139,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f0a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 153,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+      ],
+      [
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 84,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 222,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 141,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 137,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f1a51eef2e-ef86-4379-b81d-b426f5b93192',
+          width: 139,
+          colSpan: 1,
+          rowSpan: 1,
+          value: '',
+        },
+        {
+          class:
+            's0a51eef2e-ef86-4379-b81d-b426f5b93192 f0a51eef2e-ef86-4379-b81d-b426f5b93192',
           width: 153,
           colSpan: 1,
           rowSpan: 1,
