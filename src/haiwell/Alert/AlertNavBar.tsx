@@ -20,7 +20,7 @@ const Page: FC<{ data: alert2.client.TableData }> = ({ data }) => {
 const History: FC<AlertNavBarProps> = ({ data }) => {
   return (
     <div className="icons">
-      <span className="icon" style={{ backgroundImage: `url(${calender})` }}
+      <span className="icon" style={{ padding: 0, backgroundImage: `url(${calender})` }}
         onClick={() => {
           data.beep();
           data.inputDate();
@@ -45,7 +45,7 @@ const History: FC<AlertNavBarProps> = ({ data }) => {
 const Confirmed: FC<AlertNavBarProps> = ({ data }) => {
   return (
     <div className="icons">
-      <span className="icon" style={{ backgroundImage: `url(${calender})` }}
+      <span className="icon" style={{ padding: 0, backgroundImage: `url(${calender})` }}
         onClick={() => {
           data.beep();
           data.inputDate();
@@ -70,7 +70,7 @@ const Confirmed: FC<AlertNavBarProps> = ({ data }) => {
 const Unconfirm: FC<AlertNavBarProps> = ({ data }) => {
   return (
     <div className="icons">
-      <span className="icon" style={{ backgroundImage: `url(${calender})` }}
+      <span className="icon" style={{ padding: 0, backgroundImage: `url(${calender})` }}
         onClick={() => {
           data.beep();
           data.inputDate();
