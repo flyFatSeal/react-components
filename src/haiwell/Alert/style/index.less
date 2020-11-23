@@ -9,6 +9,7 @@
     overflow: hidden;
     height: 100%;
     width: 100%;
+    box-sizing: border-box;
 
     @tab-paddingTop: 0.3em;
     @tab-paddingLeft: 0.5em;
@@ -94,12 +95,13 @@
         overflow: hidden;
         text-align: center;
         flex-shrink: 0;
-        flex-grow: 0;
+        flex-grow: 1;
         user-select: none;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
+        box-sizing: border-box;
     }
     .cell>span{
         display: inline-block;

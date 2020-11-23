@@ -68,6 +68,8 @@ declare namespace alert2 {
 
         /** 报警消息颜色 */
         export interface Theme {
+            /** 边框宽度，单位像素 */
+            borderWidth: string;
             /** 标签文本颜色 */
             navColor: string;
             /** 标签高亮背景 */

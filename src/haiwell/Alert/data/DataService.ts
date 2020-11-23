@@ -7,7 +7,7 @@ export class DataService implements alert2.client.Service {
     /** 数据有更新 */
     onUpdate?: (data: alert2.client.TableData) => void
     private _page: number = 0;
-    private _tab: alert2.client.Tabs = "realtime";
+    private _tab: alert2.client.Tabs;
     private _alerts: alert2.client.ServerData[] = [];
     private _timeStart?: number;
     private _timeEnd?: number;
@@ -19,7 +19,8 @@ export class DataService implements alert2.client.Service {
      */
     private _pageLock: number;
 
-    constructor(pageSize: number = 10) {
+    constructor(tab: alert2.client.Tabs = "realtime", pageSize: number = 10) {
+        this._tab = tab;
         this._timer = window.setTimeout(() => { }, 0);
         this._lastRender = 0;
         this.pageSize = pageSize;

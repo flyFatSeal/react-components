@@ -104,9 +104,9 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
   conf,
   ...rest
 }) => {
-  const fontSize = conf.theme.titleFontSize;
-  const color = conf.theme.titleColor;
-  const borderColor = conf.theme.titleBoderColor;
+  const fontSize = conf.theme.navFontSize;
+  const color = conf.theme.navColor;
+  const border = conf.theme.navBorder;
   return (
     <div className="nav" style={{ fontSize }}>
       <div className="tabs">
@@ -117,7 +117,7 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
               style={{
                 backgroundColor,
                 color,
-                borderColor,
+                border,
               }}
               onClick={() => {
                 data.beep();

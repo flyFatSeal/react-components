@@ -42,7 +42,7 @@ export const HaiwellAlert: FC<HaiwellAlertProps> = ({
  */
 export const renderAlert = (container: HTMLElement, props: alert2.client.AlertProps) => {
     setup(props.env);
-    const service = new DataService();
+    const service = new DataService(props.conf.tabs[0]);
     ReactDOM.render(<HaiwellAlert {...props} service={service} />, container)
 }
 

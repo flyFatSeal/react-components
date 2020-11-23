@@ -58,7 +58,7 @@ export const AlertTable: FC<AlertTableProps> = ({
           key = "un" + idx;
           return (<AlertMessage {...{ key, data, conf }}></AlertMessage>);
         }
-        key = idx;
+        key = alert.uid;
         return (<AlertMessage {...{ key, data, conf, alert }}></AlertMessage>);
       })}
     </div>
