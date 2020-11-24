@@ -1,12 +1,14 @@
 /// <reference path="./ophis.d.ts" />
 
 declare namespace alert2 {
-
     export interface Env {
         socket: ISocket;
         getLang(): { id: number; name: string };
         inputNumber(defaultValue: number, callback: (page: number | undefined) => void): void;
-        inputDate(defaultValue: { s: number; e: number }, cb: (timerange: { s: number; e: number } | undefined) => void): void;
+        inputDate(
+            defaultValue: { s: number; e: number },
+            cb: (timerange: { s: number; e: number } | undefined) => void
+        ): void;
         getVariableName(variableID: number): string;
         sysLangChange(fn: (this: undefined) => void): void;
         beep(): void;
@@ -20,7 +22,6 @@ declare namespace alert2 {
     }
 
     export namespace client {
-
         /** 报警数据 服务端 */
         export interface ServerData {
             /** 报警消息唯一 id */

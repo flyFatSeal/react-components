@@ -32,6 +32,7 @@ for (let field of fields) {
 }
 
 const theme: alert2.client.Theme = {
+  borderWidth: "1px",
   wordWrap: false,
   paddingColor: "#CCC",
   padding: "3px",
