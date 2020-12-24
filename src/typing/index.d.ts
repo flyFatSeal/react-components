@@ -29,15 +29,7 @@ interface Hai {
   parseToDOM(str: string): HTMLElement
   use(key: string, callback: () => void)
   each(obj: {[k: string]: any}, callback: (key: string, value: any) => void)
-  onceMessage(
-    name: 'returnProjectLang',
-    fn: (...args: any[]) => any,
-    cover?: boolean
-  )
-  onMessage(
-    name: 'returnProjectLang',
-    fn: (...args: any[]) => any,
-    cover?: boolean
-  )
+  onceMessage(name: string, fn: (...args: any[]) => any, cover?: boolean)
+  onMessage(name: string, fn: (...args: any[]) => any, cover?: boolean)
   offMessage(name: string, fn: (...args: any[]) => any)
 }

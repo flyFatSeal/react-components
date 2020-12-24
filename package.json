@@ -28,10 +28,14 @@
     "@ant-design/icons": "^4.2.2",
     "@handsontable/react": "2.1.0",
     "axios": "^0.19.2",
+    "chart.js": "^2.7.3",
+    "chartjs-plugin-annotation": "^0.5.7",
+    "chartjs-plugin-streaming": "^1.8.0",
     "classnames": "^2.2.6",
     "conventional-changelog-cli": "^2.1.0",
     "handsontable": "^6.2.2",
     "omit.js": "^2.0.2",
+    "react-chartjs-2": "^2.11.1",
     "react-transition-group": "^4.4.1"
   },
   "peerDependencies": {
@@ -41,7 +45,7 @@
   "scripts": {
     "start": "npm run storybook",
     "clean": "rimraf ./lib",
-    "lint": "eslint --ext js,ts,tsx src --max-warnings 20",
+    "lint": "eslint --ext js,ts,tsx src --max-warnings 50",
     "build": "npm run clean && npm run build-ts && npm run copyLess",
     "copyLess": "copyfiles -u 1 \"src/components/**/style/*.less\" lib && copyfiles -u 1 \"src/components/style/**/*.less\" lib",
     "test": "jest",

@@ -148,10 +148,11 @@ const Table: FC<HaiwellTableProps> = (props) => {
     rootDiv.classList.add('report_print_center')
     // 隐藏工具栏
     toolbarRef.current!.style.display = 'none'
-    const [beforeWidth, beforeHeight, beforeTop] = [
+    const [beforeWidth, beforeHeight, beforeTop, beforeZIndex] = [
       rootDiv.style.width,
       rootDiv.style.height,
       rootDiv.style.top,
+      rootDiv.style.zIndex,
     ]
     // 为了能打印出多页的情况，必须要将body和外部容器的高度和表格的总高度一致。
     const resetHeight =
@@ -160,7 +161,9 @@ const Table: FC<HaiwellTableProps> = (props) => {
         : (tableData.length + 7) * 30
     rootDiv.style.width = '100%'
     rootDiv.style.height = `${resetHeight}px`
+    rootDiv.style.minHeight = '100%'
     rootDiv.style.top = '0'
+    rootDiv.style.zIndex = '9999'
     document.body.style.minHeight = `${resetHeight}px`
 
     let scaleCount = 770 / (hotSetting.width as number)
@@ -187,12 +190,16 @@ const Table: FC<HaiwellTableProps> = (props) => {
     } else {
       window.print()
     }
+    // reset CssProps
     rootDiv.style.height = beforeHeight
     rootDiv.style.width = beforeWidth
+    rootDiv.style.minHeight = '1px'
     rootDiv.style.top = beforeTop
+    rootDiv.style.zIndex = beforeZIndex
     hotInstanceRef.current?.updateSettings(hotSetting, false)
     rootDiv.classList.remove('report_print_center')
     toolbarRef.current!.style.display = 'flex'
+
     document.body.style.minHeight = '100px'
   }
   /** 查询数据*/
