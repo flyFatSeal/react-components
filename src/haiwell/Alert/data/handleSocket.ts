@@ -98,6 +98,10 @@ function onLang(data: alert2.common.LanguageResponse) {
 }
 
 function onLatest(data: alert2.common.LatestResponse) {
+    for (let k in REALTIME) {
+        REALTIME[k] = undefined as any;
+        delete REALTIME[k];
+    }
     for (let k in data.realtime) {
         if (Object.prototype.hasOwnProperty.call(data.realtime, k)) {
             const a = data.realtime[k];
