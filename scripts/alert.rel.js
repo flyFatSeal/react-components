@@ -1,7 +1,7 @@
 // @ts-check
 const { join } = require("path");
 const base = (path) => join(__dirname, "../", path);
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /**
  * @type {import("webpack").Configuration}
@@ -27,21 +27,22 @@ module.exports = {
         minimize: true
     },
 
-    plugins: [
-        new BundleAnalyzerPlugin({
-            analyzerMode: 'server',
-            analyzerHost: '127.0.0.1',
-            analyzerPort: 8889,
-            reportFilename: 'report.html',
-            defaultSizes: 'parsed',
-            openAnalyzer: true,
-            generateStatsFile: false,
-            statsFilename: 'stats.json',
-            statsOptions: null,
-            logLevel: 'info',
-        }),
-    ],
+    // plugins: [
+    //     new BundleAnalyzerPlugin({
+    //         analyzerMode: 'server',
+    //         analyzerHost: '127.0.0.1',
+    //         analyzerPort: 8889,
+    //         reportFilename: 'report.html',
+    //         defaultSizes: 'parsed',
+    //         openAnalyzer: true,
+    //         generateStatsFile: false,
+    //         statsFilename: 'stats.json',
+    //         statsOptions: null,
+    //         logLevel: 'info',
+    //     }),
+    // ],
 
+    devtool: "source-map",
     module: {
         rules: [
             {

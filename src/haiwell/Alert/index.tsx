@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import { Alert } from "./Alert";
 import { setup } from "./data/env";
 import { DataService } from "./data/DataService";
+import { ActionContext, AlertAction, ConfContext } from "./data/contexts";
 
 console.log("alert2 v1");
 
@@ -11,7 +12,8 @@ console.log("alert2 v1");
  * 报警属性
  */
 export interface HaiwellAlertProps extends alert2.client.AlertProps {
-    service: alert2.client.Service;
+    service: DataService,
+    env: alert2.Env;
 }
 
 /**
@@ -20,18 +22,23 @@ export interface HaiwellAlertProps extends alert2.client.AlertProps {
 export const HaiwellAlert: FC<HaiwellAlertProps> = ({
     conf,
     service,
+    env,
 }) => {
-    const [data, setData] = useState<alert2.client.TableData>(service.getData());
-    service.onUpdate = setData;
-    const realtimeOnly = conf.tabs.length === 1 && conf.tabs[0] === "realtime";
+    const actions: AlertAction = {
+        beep: env.beep,
+        confirm: service.confirm,
+        setPage: service.setPage,
+        setTab:service.setTab,
+        inputDate:service.inputDate,
+        inputPage:service.inputPage,
+    };
+
     return (
-        <Alert
-            {...{
-                conf,
-                data,
-                realtimeOnly,
-            }}
-        ></Alert>
+        <ConfContext.Provider value={conf}>
+            <ActionContext.Provider value={actions}>
+                <Alert service={service} />
+            </ActionContext.Provider>
+        </ConfContext.Provider>
     );
 };
 
@@ -43,7 +50,7 @@ export const HaiwellAlert: FC<HaiwellAlertProps> = ({
 export const renderAlert = (container: HTMLElement, props: alert2.client.AlertProps) => {
     setup(props.env);
     const service = new DataService(props.conf.tabs[0]);
-    ReactDOM.render(<HaiwellAlert {...props} service={service} />, container)
+    ReactDOM.render(<HaiwellAlert {...props} service={service} env={props.env} />, container)
 }
 
 export default renderAlert;

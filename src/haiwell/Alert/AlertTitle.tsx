@@ -1,17 +1,18 @@
 import React from "react";
+import { ConfContext } from "./data/contexts";
 
 /**
  * 报警标题栏属性
  */
 export interface AlertTitleProps {
-  conf: alert2.client.Configuration;
   data: alert2.client.TableData;
 }
 
 /**
  * 报警标题栏
  */
-export const AlertTitle: FC<AlertTitleProps> = ({ data, conf }) => {
+export const AlertTitle: FC<AlertTitleProps> = ({ data }) => {
+  const conf = React.useContext(ConfContext);
   const lang = data.uiLang;
   return (
     <div

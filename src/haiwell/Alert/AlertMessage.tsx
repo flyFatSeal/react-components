@@ -1,4 +1,5 @@
 import React from "react";
+import { ActionContext, ConfContext } from "./data/contexts";
 
 /**
  * 报警消息属性
@@ -9,14 +10,14 @@ export interface AlertMessageProps {
    * 报警消息
    */
   alert?: alert2.client.DataWithIndex;
-  conf: alert2.client.Configuration;
 }
 
 export const AlertMessage: FC<AlertMessageProps> = ({
   data,
-  conf,
   alert,
 }) => {
+  const conf = React.useContext(ConfContext);
+  const action = React.useContext(ActionContext);
   let color = conf.theme.msgNormal;
   if (data.tab === "realtime" && alert !== undefined) {
     color = alert.type === "recovery"
@@ -44,8 +45,8 @@ export const AlertMessage: FC<AlertMessageProps> = ({
           alert.uid >= 0 &&
           alert.confirmTime === ""
         ) {
-          data.beep();
-          data.confirm(alert);
+          action.beep();
+          action.confirm(alert);
         }
       }}
     >
@@ -55,7 +56,6 @@ export const AlertMessage: FC<AlertMessageProps> = ({
         let text = "";
         if (alert !== undefined) {
           if (field === "recoveryTime") {
-            // console.warn("201010161641, unsupport recovery time");
           } else if (field === "message") {
             text = alert[field];
             const lang = data.dataLang[alert.variableID];

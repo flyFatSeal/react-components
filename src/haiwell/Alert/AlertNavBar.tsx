@@ -4,38 +4,40 @@ import CheckSquareOutlined from "@ant-design/icons/CheckSquareOutlined";
 import LeftCircleOutlined from "@ant-design/icons/LeftCircleOutlined";
 import RightCircleOutlined from "@ant-design/icons/RightCircleOutlined";
 import type { BaseComponentProps } from "../../types";
+import { ActionContext, ConfContext } from "./data/contexts";
 
 export interface AlertNavBarProps extends BaseComponentProps {
   data: alert2.client.TableData;
-  conf: alert2.client.Configuration;
 }
 
 const Page: FC<{ data: alert2.client.TableData }> = ({ data }) => {
+  const action = React.useContext(ActionContext);
   return <span className="page" onClick={() => {
-    data.beep();
-    data.inputPage();
+    action.beep();
+    action.inputPage();
   }}>{data.page + 1}</span>;
 };
 
 const History: FC<AlertNavBarProps> = ({ data }) => {
+  const action = React.useContext(ActionContext);
   return (
     <div className="icons">
       <span className="icon" style={{ padding: 0, backgroundImage: `url(${calender})` }}
         onClick={() => {
-          data.beep();
-          data.inputDate();
+          action.beep();
+          action.inputDate();
         }}
       />
       <span className="icon" onClick={() => {
-        data.beep();
-        data.setPage(data.page - 1);
+        action.beep();
+        action.setPage(data.page - 1);
       }} >
         <LeftCircleOutlined />
       </span>
       <Page {...{ data }} />
       <span className="icon" onClick={() => {
-        data.beep();
-        data.setPage(data.page + 1);
+        action.beep();
+        action.setPage(data.page + 1);
       }} >
         <RightCircleOutlined />
       </span>
@@ -43,24 +45,25 @@ const History: FC<AlertNavBarProps> = ({ data }) => {
   );
 };
 const Confirmed: FC<AlertNavBarProps> = ({ data }) => {
+  const action = React.useContext(ActionContext);
   return (
     <div className="icons">
       <span className="icon" style={{ padding: 0, backgroundImage: `url(${calender})` }}
         onClick={() => {
-          data.beep();
-          data.inputDate();
+          action.beep();
+          action.inputDate();
         }}
       />
       <span className="icon" onClick={() => {
-        data.beep();
-        data.setPage(data.page - 1);
+        action.beep();
+        action.setPage(data.page - 1);
       }}>
         <LeftCircleOutlined />
       </span>
       <Page {...{ data }} />
       <span className="icon" onClick={() => {
-        data.beep();
-        data.setPage(data.page + 1);
+        action.beep();
+        action.setPage(data.page + 1);
       }}>
         <RightCircleOutlined />
       </span>
@@ -68,30 +71,31 @@ const Confirmed: FC<AlertNavBarProps> = ({ data }) => {
   );
 };
 const Unconfirm: FC<AlertNavBarProps> = ({ data }) => {
+  const action = React.useContext(ActionContext);
   return (
     <div className="icons">
       <span className="icon" style={{ padding: 0, backgroundImage: `url(${calender})` }}
         onClick={() => {
-          data.beep();
-          data.inputDate();
+          action.beep();
+          action.inputDate();
         }}
       />
       <span className="icon" onClick={() => {
-        data.beep();
-        data.confirm();
+        action.beep();
+        action.confirm();
       }}>
         <CheckSquareOutlined />
       </span>
       <span className="icon" onClick={() => {
-        data.beep();
-        data.setPage(data.page - 1);
+        action.beep();
+        action.setPage(data.page - 1);
       }}>
         <LeftCircleOutlined />
       </span>
       <Page {...{ data }} />
       <span className="icon" onClick={() => {
-        data.beep();
-        data.setPage(data.page + 1);
+        action.beep();
+        action.setPage(data.page + 1);
       }}>
         <RightCircleOutlined />
       </span>
@@ -99,11 +103,9 @@ const Unconfirm: FC<AlertNavBarProps> = ({ data }) => {
   );
 };
 
-export const AlertNavBar: FC<AlertNavBarProps> = ({
-  data,
-  conf,
-  ...rest
-}) => {
+export const AlertNavBar: FC<AlertNavBarProps> = ({ data }) => {
+  const conf = React.useContext(ConfContext);
+  const action = React.useContext(ActionContext);
   const fontSize = conf.theme.navFontSize;
   const color = conf.theme.navColor;
   const border = conf.theme.navBorder;
@@ -113,35 +115,19 @@ export const AlertNavBar: FC<AlertNavBarProps> = ({
         {conf.tabs.map((tab, idx) => {
           const backgroundColor = data.tab === tab ? conf.theme.navFocusBg : "";
           return (
-            <span key={idx} className="tab"
-              style={{
-                backgroundColor,
-                color,
-                border,
-              }}
-              onClick={() => {
-                data.beep();
-                data.setTab(tab)
-              }} >
+            <span key={idx} className="tab" style={{ backgroundColor, color, border, }} onClick={() => {
+              action.beep();
+              action.setTab(tab)
+            }} >
               {data.uiLang[tab]}
             </span>
           );
         })}
       </div>
       <>
-        {data.tab === "history" && (
-          <History {...{ data, conf, ...rest }}></History>
-        )}
-        {data.tab === "confirmed" && (
-          <Confirmed
-            {...{ data, conf, ...rest }}
-          ></Confirmed>
-        )}
-        {data.tab === "unconfirm" && (
-          <Unconfirm
-            {...{ data, conf, ...rest }}
-          ></Unconfirm>
-        )}
+        {data.tab === "history" && (<History data={data} />)}
+        {data.tab === "confirmed" && (<Confirmed data={data} />)}
+        {data.tab === "unconfirm" && (<Unconfirm data={data} />)}
       </>
     </div>
   );

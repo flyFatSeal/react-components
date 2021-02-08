@@ -135,32 +135,7 @@ declare namespace alert2 {
             uiLang: Record<string, string>;
             /** 报警信息多语言 */
             dataLang: DataAllVarLang;
-            /** 确认报警，如果不传 uid 则会确认所有 */
-            confirm(alert?: DataWithIndex): void;
-            /**
-             * 设置页码
-             * @param page page
-             */
-            setPage(page: number): void;
-            /**
-             * 设置当前激活的标签页
-             * @param tab 激活的标签页
-             */
-            setTab(tab: Tabs): void;
-            /**
-             * 显示页码输入框
-             * @param callback 回调
-             */
-            inputPage(): void;
-            /**
-             * 输入日期
-             * @param id 需要附加日历的元素的 id
-             * @param cb 回调
-             */
-            inputDate(): void;
 
-            /** beep */
-            beep(): void;
         }
 
         /** 报警数据服务 */

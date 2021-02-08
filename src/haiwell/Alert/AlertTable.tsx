@@ -2,23 +2,23 @@ import React from "react";
 import { BaseComponentProps } from "../../types";
 import { AlertMessage } from "./AlertMessage";
 import { AlertTitle } from "./AlertTitle";
+import { ConfContext } from "./data/contexts";
 export interface AlertTableProps extends BaseComponentProps {
   data: alert2.client.TableData;
-  conf: alert2.client.Configuration;
   /** 是否只有实时模式 */
   realtimeOnly: boolean;
 }
 
-let reactKey = 0;
+let unid = 0;
 
 /**
  * 报警内容的表格
  */
 export const AlertTable: FC<AlertTableProps> = ({
   data,
-  conf,
   realtimeOnly,
 }) => {
+  const conf = React.useContext(ConfContext);
   let pageSize = conf.pageSize || 10;
   if (data.tab === "realtime") {
     pageSize = Math.max(pageSize, data.alerts.length);
@@ -45,7 +45,6 @@ export const AlertTable: FC<AlertTableProps> = ({
   if (realtimeOnly) {
     style.height = "100%";
   }
-
   return (
     <div
       className="table"
@@ -55,11 +54,11 @@ export const AlertTable: FC<AlertTableProps> = ({
       {alerts.map((alert, idx) => {
         let key: string | number = idx;
         if (alert === undefined || isNaN(alert.uid)) {
-          key = "un" + idx;
-          return (<AlertMessage {...{ key, data, conf }}></AlertMessage>);
+          key = "em" + idx;
+          return (<AlertMessage key={"em" + idx} {...{ data }}></AlertMessage>);
         }
-        key = alert.uid;
-        return (<AlertMessage {...{ key, data, conf, alert }}></AlertMessage>);
+        key = idx + ":" + alert.uid;
+        return (<AlertMessage key={key} {...{ data, alert }}></AlertMessage>);
       })}
     </div>
   );

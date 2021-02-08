@@ -6,6 +6,7 @@ const ALL_SERVICE: DataService[] = [];
 export class DataService implements alert2.client.Service {
     /** 数据有更新 */
     onUpdate?: (data: alert2.client.TableData) => void
+    /** 页码，从 0 开始 */
     private _page: number = 0;
     private _tab: alert2.client.Tabs;
     private _alerts: alert2.client.ServerData[] = [];
@@ -35,14 +36,8 @@ export class DataService implements alert2.client.Service {
             tab: this._tab,
             page: this._page,
             alerts: this._alerts,
-            confirm: this.confirm,
-            setPage: this.setPage,
-            setTab: this.setTab,
-            inputDate: this.inputDate,
-            inputPage: this.inputPage,
             uiLang: getUiLang(),
             dataLang: getDataLang(),
-            beep: this.beep,
         };
     }
 
@@ -56,7 +51,7 @@ export class DataService implements alert2.client.Service {
 
     /**
      * 设置页码
-     * @param page page
+     * @param page 从 0 开始
      */
     readonly setPage = (page: number) => {
         if (page === this._page) {
@@ -103,9 +98,10 @@ export class DataService implements alert2.client.Service {
      * @param callback 回调
      */
     readonly inputPage = () => {
-        env.inputNumber(this._page, (page?: number) => {
-            if (page === undefined) return;
-            this.setPage(page);
+        env.inputNumber(this._page, (page?: any) => {
+            page = parseInt(page);
+            if (isNaN(page)) return;
+            this.setPage(page - 1);
         });
     };
 
@@ -119,15 +115,17 @@ export class DataService implements alert2.client.Service {
         if (this._timeStart !== undefined && this._timeEnd !== undefined) {
             options = { s: this._timeStart, e: this._timeEnd };
         } else {
-            options = { s: Date.now(), e: Date.now() };
+            options = { s: Date.now() - 5 * 60 * 1000, e: Date.now() };
         }
         env.inputDate(options, (range) => {
+            console.log(range);
             if (range === undefined) return;
             if (range.s === this._timeStart && range.e === this._timeEnd) {
                 return;
             }
             this._timeStart = range.s;
             this._timeEnd = range.e;
+            console.log("query:", this._timeStart, this._timeEnd);
             this.query();
         });
     };
@@ -207,9 +205,5 @@ export class DataService implements alert2.client.Service {
                 s.update();
             }
         }
-    }
-
-    private readonly beep = () => {
-        env.beep();
     }
 }
